@@ -1,0 +1,476 @@
+╔══════════════════════════════════════════════════════════════════╗
+║         NINJINHA BOM DE BRIGA — FICHA COMPLETA DO ATLETA        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  Atleta   : CLÁUDIO SANTANA
+  Idade    : 33 anos
+  Objetivo : Hipertrofia (V-Taper · prioridade Peito, Costas, Ombros, Panturrilhas)
+  Personal : Pedro Henrique Vaz
+  Sistema  : PPL Duplo (Push/Pull/Legs A+B) · 6 treinos por ciclo
+  Versão   : v6.3 — auditoria completa 14/07/2026
+
+
+══════════════════════════════════════════════════════════════════
+  COMPOSIÇÃO CORPORAL — AVALIAÇÃO: 07/02/2026
+══════════════════════════════════════════════════════════════════
+
+  Peso avaliado  : 81,25 kg          Peso atual (jul/2026) : 82 kg
+  Altura         : 188 cm
+  % Gordura      : 11,65 %           Peso desejável : 85,46 kg
+  Massa Magra    : 71,79 kg
+  Massa Muscular : 40,05 kg
+  Peso Ósseo     : 12,15 kg
+
+  BMR (Katch-McArdle)  : 370 + 21,6 × 71,79 = ~1.921 kcal/dia
+  TDEE (×1,725)        : ~3.314 kcal/dia   (Muito ativo · 4-5×/sem)
+
+
+──────────────────────────────────────────────────────────────────
+  CIRCUNFERÊNCIAS (cm)
+──────────────────────────────────────────────────────────────────
+
+  Tronco
+    Tórax     : 102    Cintura   : 82     Abdome  : 84    Quadril : 95
+
+  Braços
+    Braço D (contraído) : 37,5     Braço E (contraído) : 37,5
+    Antebraço D         : 28       Antebraço E         : 28
+
+  Pernas
+    Coxa D         : 57            Coxa E         : 55,5
+    Panturrilha D  : 35,5          Panturrilha E  : 36
+
+
+──────────────────────────────────────────────────────────────────
+  DOBRAS CUTÂNEAS — POLLOCK 7 (mm)
+──────────────────────────────────────────────────────────────────
+
+  Peitoral    : 7      Axilar Média  : 5      Tricipital    : 6
+  Subescapular: 11     Supra-Ilíaca  : 7      Abdominal     : 14
+  Coxa        : 9
+
+  Soma 7 dobras : 59 mm   →   % GC calculado : 11,65 %
+
+
+──────────────────────────────────────────────────────────────────
+  DESLOCAMENTO ATIVO
+──────────────────────────────────────────────────────────────────
+
+  Modo          : Caminhada
+  Distância ida : 1,1 km         Ida + volta : 2,2 km/sessão
+  Velocidade    : 4,8 km/h
+  Tempo aprox.  : ~14 min (ida) · ~28 min total
+  Estimativa kcal (MET 3,5 × 82kg) : ~67 kcal (ida+volta)
+
+
+══════════════════════════════════════════════════════════════════
+  CICLO DE TREINOS — PPL DUPLO (6 sessões)
+══════════════════════════════════════════════════════════════════
+
+  Posição 1 → PUSH A   (Peitoral Superior + Deltoide Lateral)
+  Posição 2 → LEGS A   (Quadríceps — Alto Volume)
+  Posição 3 → PULL A   (Largura de Costas)
+  Posição 4 → PUSH B   (Ombros + Peitoral)
+  Posição 5 → LEGS B   (Posterior + Glúteo — Alto Volume)
+  Posição 6 → PULL B   (Costas em V + Trapézio)
+
+
+══════════════════════════════════════════════════════════════════
+  PUSH A — PEITORAL SUPERIOR + DELTOIDE LATERAL
+══════════════════════════════════════════════════════════════════
+
+  Lógica: Compostos de peito primeiro (inclinado → reto → declinado),
+  laterais no meio para cobrir deltoides frescos antes das isolações,
+  tríceps no final quando peito já fatigado.
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Supino Inclinado (Halter/Articulado)             │  3   │  6-8  │ 120s │
+  │   ↳ 1ª Série leve 15×                           │      │       │      │
+  │ Supino Reto (Halter/Articulado)                  │  3   │  6-8  │  90s │
+  │ Elevação Lateral (Halter)                        │  4   │ 12-15 │  60s │
+  │ Elevação Lateral na Máquina                      │  4   │ 12-15 │  60s │
+  │ Supino Declinado Articulado                      │  3   │ 10-12 │  60s │
+  │ Tríceps Francês                                  │  3   │  8-10 │  60s │
+  │   ↳ Cabeça longa · cotovelo alto                │      │       │      │
+  │ Tríceps Pulley                                   │  3   │ 10-12 │  60s │
+  │   ↳ Pico 2s                                     │      │       │      │
+  │ Infra Suspenso                                   │  3   │  15   │   —  │
+  │ Prancha Ventral                                  │  3   │  60s  │  60s │
+  │ Panturrilha em Pé                               │  3   │ 15-20 │  45s │
+  │   ↳ Frequência extra                            │      │       │      │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 10 exercícios · 32 séries
+  Mudanças v6.3: Laterais movidas para ANTES do Declinado · Tríceps Testa → Francês
+
+
+══════════════════════════════════════════════════════════════════
+  LEGS A — QUADRÍCEPS (ALTO VOLUME)
+══════════════════════════════════════════════════════════════════
+
+  Lógica: Panturrilha ativa no aquecimento → compostos de quad
+  (Agachamento + Leg Press) → isolações (Extensora → Flexora) →
+  adutores/abdutores → Stiff como finalizador posterior com pré-fadiga.
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Panturrilha em Pé                              │  3   │ 15-20 │  45s │
+  │   ↳ Ativação                                   │      │       │      │
+  │ Agachamento Livre / Pendular                    │  3   │  6-8  │ 180s │
+  │   ↳ 1ª Série leve 15×                          │      │       │      │
+  │ Leg Press 45°                                   │  4   │ 10-15 │ 120s │
+  │ Extensora Unilateral                            │  4   │ 12-15 │  90s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Flexora Unilateral                              │  3   │ 10-12 │  90s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Adutora                                         │  3   │  15   │  60s │
+  │ Abdutora                                        │  3   │  15   │  60s │
+  │ Stiff                                           │  3   │  8-10 │  90s │
+  │   ↳ Finalizador · ênfase no alongamento         │      │       │      │
+  │ Panturrilha Sentada                             │  4   │ 12-15 │  60s │
+  │ Panturrilha em Pé                              │  4   │ 12-15 │  60s │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 10 exercícios · 34 séries
+  Mudanças v6.3: Extensora antes da Flexora · Stiff movido para fim (após adutores)
+
+
+══════════════════════════════════════════════════════════════════
+  PULL A — LARGURA DE COSTAS
+══════════════════════════════════════════════════════════════════
+
+  Lógica: Puxada abre o pull (foco em largura quando fresco) →
+  remadas (espessura) → pullover (sinergia de lat) → posterior de ombro
+  → Encolhimento (trapézio direto) → bíceps no final.
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Puxada Frente Pronada                           │  4   │  6-10 │ 120s │
+  │   ↳ 1ª Série leve 15× · Pico 2s                │      │       │      │
+  │ Remada Curvada Pronada                          │  3   │  8-10 │  90s │
+  │ Remada Unilateral Articulada                    │  3   │  8-10 │  90s │
+  │ Pullover na Polia                               │  4   │ 12-15 │  60s │
+  │ Crucifixo Inverso Máquina                       │  3   │ 12-15 │  60s │
+  │ Face Pull                                       │  3   │ 12-15 │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Encolhimento com Halteres                       │  4   │ 10-15 │  60s │
+  │   ↳ Pico 2s no topo                            │      │       │      │
+  │ Rosca Scott Máquina                             │  3   │  8-10 │  60s │
+  │ Rosca Martelo Banco 60°                         │  3   │  8-10 │  60s │
+  │ Abdominal Remador                               │  3   │  15   │   —  │
+  │ Prancha Lateral                                 │  3   │  60s  │  60s │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 11 exercícios · 36 séries
+  Mudanças v6.3: Puxada movida para 1ª posição · Encolhimento ADICIONADO (4s)
+  → corrige negligência de trapézio (era 4 séries/ciclo, agora 8 séries diretas)
+
+
+══════════════════════════════════════════════════════════════════
+  PUSH B — OMBROS + PEITORAL
+══════════════════════════════════════════════════════════════════
+
+  Lógica: Desenvolvimento abre o push (ombros frescos para carga máxima)
+  → laterais em volume alto (foco deltoides) → peito como work secundário
+  → tríceps no final.
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Desenvolvimento com Halteres                    │  4   │  6-8  │ 120s │
+  │   ↳ 1ª Série leve 15×                          │      │       │      │
+  │ Elevação Lateral na Polia                       │  4   │ 12-15 │  60s │
+  │ Elevação Lateral na Máquina                     │  4   │ 12-15 │  60s │
+  │ Supino Reto (Halter)                            │  3   │  8-10 │  90s │
+  │   ↳ Tempo 3-1-2 · volume                       │      │       │      │
+  │ Crucifixo Inclinado Articulado                  │  3   │  8-10 │  90s │
+  │ Peck Deck                                       │  3   │ 10-12 │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Tríceps Testa Cabo                              │  3   │  8-10 │  60s │
+  │ Tríceps Pulley                                  │  3   │ 10-12 │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Prancha Ventral                                 │  3   │  60s  │  60s │
+  │ Prancha Lateral                                 │  3   │  60s  │  60s │
+  │ Panturrilha em Pé                              │  3   │ 15-20 │  45s │
+  │   ↳ Frequência extra                           │      │       │      │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 11 exercícios · 36 séries
+  Mudanças v6.3: Desenvolvimento movido para 1ª posição · Supino movido para 4ª
+  → Cross Over REMOVIDO (3º isolador de peito redundante após Crucifixo + Peck Deck)
+
+
+══════════════════════════════════════════════════════════════════
+  LEGS B — POSTERIOR + GLÚTEO (ALTO VOLUME)
+══════════════════════════════════════════════════════════════════
+
+  Lógica: Panturrilha ativa → Cadeira Ext como primer de joelho antes do Terra
+  → Terra (composto rei) → Elevação Pélvica (glúteo em isolação máxima)
+  → Afundo (unilateral) → Flexoras (posterior) → adutores/abdutores.
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Panturrilha em Pé                              │  3   │ 15-20 │  45s │
+  │   ↳ Ativação                                   │      │       │      │
+  │ Cadeira Extensora                               │  3   │  15   │  45s │
+  │   ↳ Ativação · leve (primer de joelho)         │      │       │      │
+  │ Levantamento Terra                              │  3   │  6-8  │ 180s │
+  │   ↳ 1ª Série leve 15×                          │      │       │      │
+  │ Elevação Pélvica                                │  4   │ 10-12 │  90s │
+  │   ↳ Pico 2s · glúteo                           │      │       │      │
+  │ Afundo Smith                                    │  4   │ 10-12 │  90s │
+  │ Mesa Flexora                                    │  4   │ 10-12 │  90s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Flexora Sentada                                 │  3   │ 12-15 │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Adutora                                         │  3   │  15   │  60s │
+  │ Abdutora                                        │  3   │  15   │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Panturrilha Sentada                             │  4   │ 12-15 │  60s │
+  │ Panturrilha em Pé                              │  4   │ 12-15 │  60s │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 11 exercícios · 38 séries
+  Mudanças v6.3: Cadeira Ext movida para 2ª posição (primer antes do Terra)
+  → Elevação Pélvica ADICIONADA (glúteo direto após Terra · 4 séries)
+
+
+══════════════════════════════════════════════════════════════════
+  PULL B — COSTAS EM V + TRAPÉZIO
+══════════════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────┬──────┬───────┬──────┐
+  │ Exercício                                       │ Sérs │ Reps  │ Rest │
+  ├─────────────────────────────────────────────────┼──────┼───────┼──────┤
+  │ Remada Articulada Pronada                       │  3   │  6-8  │ 120s │
+  │   ↳ 1ª Série leve 15×                          │      │       │      │
+  │ Puxada com Triângulo                            │  4   │  8-10 │  90s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Remada Baixa c/ Triângulo                       │  3   │ 10-12 │  90s │
+  │ Pullover na Polia                               │  3   │ 12-15 │  60s │
+  │ Face Pull                                       │  3   │ 12-15 │  60s │
+  │   ↳ Pico 2s                                    │      │       │      │
+  │ Encolhimento com Halteres                       │  4   │ 10-15 │  60s │
+  │ Rosca Barra W                                   │  3   │  6-8  │  60s │
+  │ Rosca Unilateral Polia Alta                     │  3   │ 10-12 │  60s │
+  │ Abdominal Infra                                 │  3   │  15   │   —  │
+  │ Prancha Lateral                                 │  3   │  60s  │  60s │
+  └─────────────────────────────────────────────────┴──────┴───────┴──────┘
+
+  Volume: 10 exercícios · 32 séries
+  Sem mudanças v6.3 (já otimizado em ciclo anterior)
+
+
+══════════════════════════════════════════════════════════════════
+  RESUMO DE VOLUME POR CICLO COMPLETO (v6.3)
+══════════════════════════════════════════════════════════════════
+
+  Grupo muscular        PushA PushB PullA PullB LegsA LegsB   TOTAL
+  ─────────────────────────────────────────────────────────────────
+  Peito (3 ângulos)       9     9     —     —     —     —      18s
+  Ombros Lat              8     8     —     —     —     —      16s
+  Deltoide Post           —     —     6     3     —     —       9s
+  Tríceps (direto)        6     6     —     —     —     —      12s
+  Costas / Dorsais        —     —    14    13     —     —      27s
+  Trapézio (direto)       —     —     4     4     —     —       8s  ← corrigido
+  Bíceps (direto)         —     —     6     6     —     —      12s
+  Quadríceps              —     —     —     —    11     7      18s
+  Posterior / Glúteo      —     —     —     —     6    11      17s
+  Adutora / Abdutora      —     —     —     —     6     6      12s
+  Panturrilha             3     3     —     —    11    11      28s
+  Core / Abdominal        6     6     6     6     —     —      24s
+  ─────────────────────────────────────────────────────────────────
+  TOTAL CICLO            32    36    36    32    34    38     208s
+
+  Trapézio indireto (remadas + terra) estimado: +9 séries · total ~17s/ciclo
+
+
+══════════════════════════════════════════════════════════════════
+  MACROS ESTIMADAS (objetivo: hipertrofia)
+══════════════════════════════════════════════════════════════════
+
+  TDEE base          : ~3.314 kcal/dia
+  Superávit sugerido : +200 a +350 kcal/dia  →  alvo 3.500-3.700 kcal/dia
+
+  Proteína (2,2g × 71,79 kg lean mass) : ~158g/dia   (~632 kcal)
+  Gordura  (25% das kcal)              :  ~96g/dia   (~864 kcal)
+  Carboidratos (restante)              : ~550g/dia   (~2.200 kcal)
+
+  + Deslocamento ativo (~67 kcal/sessão de treino, estimativa MET 3.5)
+  + Meta de peso: +0,2 a 0,4 kg/semana (bulk limpo)
+
+
+══════════════════════════════════════════════════════════════════
+  METAS — PRÓXIMOS 12 MESES (jul/2026 → jul/2027)
+══════════════════════════════════════════════════════════════════
+
+  Métrica              Atual    Alvo 12m   Teto natural (estimado)
+  ──────────────────────────────────────────────────────────────────
+  Peso corporal        82 kg    86-88 kg   93-96 kg
+  % Gordura            11,65%   11-13%     —
+  Massa Magra          71,79 kg 75-77 kg   82-86 kg
+  Braço contraído      37,5 cm  39 cm      41-42 cm
+  Panturrilha          35,8 cm  37-38 cm   38-39 cm
+  Coxa (D)             57 cm    60+ cm     —
+
+
+══════════════════════════════════════════════════════════════════
+  ANÁLISE GERAL DO ESTÁGIO ATUAL (14/07/2026)
+══════════════════════════════════════════════════════════════════
+
+  ── CONTEXTO: O DESAFIO DO ATLETA ALTO ─────────────────────────
+
+  Atletas acima de 185cm vivem em outro jogo. O corpo alto tem maior
+  comprimento de osso, maior área de superfície muscular e mais "espaço
+  vazio" para preencher. 5kg de músculo num cara de 170cm é notável —
+  no mesmo atleta de 188cm, mal dá para perceber.
+
+  Isso não é fraqueza, é geometria. O payoff é assimétrico e favorece
+  o longo prazo: quando chegar lá, vai parecer monumentalmente maior.
+
+
+  ── PONTOS POSITIVOS ────────────────────────────────────────────
+
+  1. COMPOSIÇÃO CORPORAL ACIMA DA MÉDIA
+     11,65% de gordura com 82kg e 188cm é legitimamente bom.
+     A maioria dos homens não-atletas nessa altura fica entre 18-25%.
+     Quartil superior em leanness — o trabalho dos anos anteriores funcionou.
+
+  2. MASSA MAGRA EXPRESSIVA PARA ALTURA E BF%
+     71,79kg de massa magra / 40,05kg de massa muscular.
+     Atletas naturais avançados nessa altura geralmente ficam entre
+     75-82kg de lean mass no pico de carreira → você está na faixa
+     intermediária-avançada, não iniciante.
+
+  3. ESTRUTURA ESQUELÉTICA FAVORÁVEL PARA V-TAPER
+     Tórax 102cm · Cintura 82cm · Quadril 95cm.
+     Essa proporção não é treinada — é genética. A maioria dos homens
+     precisa de anos de lat work para criar a ilusão de ombro largo
+     e cintura estreita. Você tem a base estrutural real.
+
+  4. DISTRIBUIÇÃO DE GORDURA PRIVILEGIADA NO TRONCO SUPERIOR
+     Dobras: Peitoral 7mm · Axilar 5mm · Tricipital 6mm.
+     Você guarda pouco fat no tronco superior mesmo em hipercalórico.
+     Em bulks vai "aparecer mais" no peito e braços — o oposto do
+     padrão mais comum.
+
+  5. SIMETRIA BILATERAL QUASE PERFEITA
+     Braço contraído: 37,5cm ambos os lados.
+     Panturrilha: 35,5/36cm (0,5cm = dentro do ruído de mensuração).
+     Em treino unilateral consistente isso não é coincidência — é
+     disciplina de execução.
+
+  6. BRAÇO JÁ EM TERRITÓRIO RESPEITÁVEL
+     37,5cm contraído em 11,65% BF.
+     Literatura de atletas naturais: ≥39cm = avançado.
+     Você está a 1,5cm — plausível em 6-12 meses de surplus limpo.
+
+  7. ESTRUTURA DE TREINO AGORA SÓLIDA
+     PPL dupla (6 dias/ciclo) · prioridade correta nos compostos ·
+     volume por grupo no range hipertrófico (16-28 séries) ·
+     Encolhimento corrigindo trapézio · Elevação Pélvica para glúteo.
+
+
+  ── ONDE FOCAR MAIS ─────────────────────────────────────────────
+
+  1. COXAS E GLÚTEO — gargalo estético e funcional
+     Agachamento + Leg Press precisam de carga progressiva agressiva.
+     Para um atleta de 188cm, coxa cheia é o diferencial visual mais
+     impactante. Se o treino de perna não for o mais dolorido da semana,
+     não está na intensidade certa.
+
+  2. PANTURRILHA — gerenciar expectativa e maximizar dentro da limitação
+     Se a inserção é alta (provável pelo padrão genético), não vai chegar
+     a 40cm. Mas dá para chegar a 38cm com 4x/semana + progressão honesta.
+     Trate como resistência: altas reps, pico de contração, sem momentum.
+
+  3. DORSAIS — largura vs espessura
+     Puxada e Pullover são os exercícios que mais impactam a "asa" lateral.
+     Precisam de progressão de carga séria, não ser tratados como finalizadores.
+     Se você quer que a cintura de 82cm pareça 76cm, são as dorsais que fazem.
+
+  4. EXCEDENTE CALÓRICO SUSTENTADO
+     TDEE ~3.314 kcal/dia. Para crescer num atleta de 188cm com metabolismo
+     ativo, o target de bulk deveria estar em 3.500-3.700 kcal/dia com
+     proteína mínima de 158g/dia.
+     Se o peso não sobe 0,2-0,4kg/semana, é alimentação — não o treino.
+
+
+  ── PONTOS NEGATIVOS (HONESTOS) ─────────────────────────────────
+
+  1. VOCÊ ESTÁ LONGE DO POTENCIAL GENÉTICO — E ISSO É NORMAL
+     Massa muscular de 40kg pode chegar a 50-55kg naturalmente.
+     Hoje você está ~70-75% do teto. Positivo (tem espaço) e
+     desafiante (requer paciência longa).
+
+  2. O VISUAL DE "PREENCHIMENTO" DEMORA MAIS DO QUE PARECE
+     Você precisa chegar a ~90kg com BF similar para ter o volume visual
+     que atletas de 175cm têm com 80kg. Isso é um compromisso de 2-4 anos
+     de bulk limpo. A tendência é frustrar-se comparando com atletas mais
+     baixos — não faça isso.
+
+  3. ABDOME/LOMBAR TÊM AS MAIORES DOBRAS
+     Abdominal 14mm · Subescapular 11mm — padrão esperado de distribuição
+     de gordura. Em cutting, será o último lugar a secar. Não é problema
+     agora (bulk phase), mas variável a considerar no futuro.
+
+  4. COXA COM ASSIMETRIA LEVE
+     Coxa D 57cm vs Coxa E 55,5cm — diferença de 1,5cm.
+     No limiar do que é considerado assimetria relevante (>1cm).
+     Afundo unilateral com prioridade para o lado esquerdo pode corrigir.
+
+
+  ── DIAGNÓSTICO HONESTO ─────────────────────────────────────────
+
+  VOCÊ ESTÁ BEM — MAS AINDA DISTANTE DO TETO.
+
+  Para um atleta sem acompanhamento profissional constante (e com os
+  períodos de inconsistência que são inevitáveis), os marcadores estão
+  favoráveis: BF controlado, lean mass acima da média, estrutura
+  esquelética privilegiada, simetria, e um programa de treino agora
+  bem estruturado.
+
+  O que não está resolvido é calórico e temporal — não é técnico.
+  O treinamento está correto. A estrutura genética é favorável.
+  O que falta é alimentação consistente em surplus e os anos de
+  adaptação que o corpo alto precisa para preencher.
+
+  Benchmark comparativo:
+  ┌─────────────────────┬─────────┬──────────┬───────────────────┐
+  │ Métrica             │  Atual  │ 12 meses │ Teto natural est. │
+  ├─────────────────────┼─────────┼──────────┼───────────────────┤
+  │ Peso                │  82 kg  │ 86-88 kg │    93-96 kg       │
+  │ BF%                 │ 11,65%  │ 11-13%   │       —           │
+  │ Lean Mass           │ 71,79kg │ 75-77 kg │   82-86 kg        │
+  │ Braço (contraído)   │ 37,5 cm │  39 cm   │   41-42 cm        │
+  │ Panturrilha         │ 35,8 cm │ 37-38 cm │   38-39 cm        │
+  └─────────────────────┴─────────┴──────────┴───────────────────┘
+
+  O programa está certo. O que não pode fazer é parar.
+
+
+══════════════════════════════════════════════════════════════════
+  CONVENÇÕES DO PROGRAMA
+══════════════════════════════════════════════════════════════════
+
+  1ª Série leve 15×  → Aquecimento no movimento antes de carregar
+  Pico 2s            → Segurar contração máxima por 2 segundos
+  Tempo 3-1-2        → 3s descida · 1s pausa · 2s subida
+  Ativação           → Série leve de pré-ativação (antes do principal)
+  Freq. extra        → Série de panturrilha adicionada fora do foco principal
+  Primer             → Exercício leve para lubrificar articulação antes de composto
+
+  Incremento de carga  : 2,5 kg (padrão) · 5 kg em compostos
+  Descanso padrão Push : 60-120s (isolados 60s · compostos 90-120s)
+  Descanso padrão Legs : 60-180s (isolados 60-90s · compostos 120-180s)
+  Descanso padrão Pull : 60-120s (isolados 60s · compostos 90-120s)
+
+══════════════════════════════════════════════════════════════════
+  Versão: 6.3 · Gerado em: 14/07/2026
+  Sistema: Treino Monstro · Atleta: NINJINHA BOM DE BRIGA
+══════════════════════════════════════════════════════════════════

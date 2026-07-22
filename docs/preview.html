@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Treino Monstro — Component Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --theme-primary: #ef4444;
+      --theme-accent:  #dc2626;
+      --theme-dim:     rgba(127,29,29,0.2);
+      --theme-dark:    #450a0a;
+      --theme-rgb:     220,38,38;
+      --body-bg:       #050505;
+      --card-bg:       linear-gradient(145deg, rgba(24,24,27,0.92), rgba(9,9,11,0.97));
+      --card-border:   rgba(127,29,29,0.11);
+      --nav-bg:        rgba(9,9,11,0.90);
+      --nav-border:    rgba(127,29,29,0.12);
+    }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+    }
+    .btn-akatsuki {
+      background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+      color: #000; font-weight: 900; border-radius: 16px;
+      border: 1px solid var(--theme-primary);
+      box-shadow: 0 0 20px rgba(var(--theme-rgb),.25);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .input-ninja {
+      background: rgba(0,0,0,0.6); border: 1px solid #3f3f46;
+      color: #fff; border-radius: 12px; padding: 10px 14px; font-size: 14px;
+    }
+    .input-ninja:focus { border-color: var(--theme-primary); outline: none; }
+    .text-theme-primary { color: var(--theme-primary); }
+    .bg-theme-dim { background: var(--theme-dim); }
+    .border-theme-accent { border-color: var(--theme-accent); }
+
+    /* Gallery layout */
+    .section-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #52525b; margin-bottom: 16px;
+      padding-bottom: 8px; border-bottom: 1px solid #27272a;
+    }
+    .preview-frame {
+      background: #050505; border-radius: 20px;
+      border: 1px solid #27272a; overflow: hidden;
+    }
+    .phone-frame {
+      width: 375px; min-height: 120px;
+      background: #050505; border-radius: 16px;
+      border: 1px solid #27272a; overflow: hidden; padding: 16px;
+    }
+    .tag { display: inline-flex; align-items: center; gap: 4px;
+           font-size: 9px; font-weight: 700; padding: 2px 8px;
+           border-radius: 20px; text-transform: uppercase; letter-spacing: .1em; }
+    .tag-primary { background: var(--theme-dim); border: 1px solid var(--theme-accent); color: var(--theme-primary); }
+    .tag-zinc    { background: rgba(39,39,42,.8); border: 1px solid #3f3f46; color: #a1a1aa; }
+    .tag-green   { background: rgba(20,83,45,.3); border: 1px solid #166534; color: #4ade80; }
+    .tag-yellow  { background: rgba(113,63,18,.3); border: 1px solid #92400e; color: #fbbf24; }
+    .tag-blue    { background: rgba(29,78,216,.2); border: 1px solid #1d4ed8; color: #60a5fa; }
+    .tag-red     { background: rgba(127,29,29,.3); border: 1px solid #7f1d1d; color: #f87171; }
+  </style>
+</head>
+<body class="p-6 max-w-6xl mx-auto">
+
+  <!-- Header -->
+  <div class="mb-10 pb-6 border-b border-zinc-800">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--theme-dim);border:1px solid var(--theme-accent)">
+        <i data-lucide="zap" class="w-5 h-5" style="color:var(--theme-primary)"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-black uppercase tracking-tighter">TREINO MONSTRO</h1>
+        <div class="text-xs text-zinc-500 font-mono">Component Gallery · v6.1</div>
+      </div>
+    </div>
+    <p class="text-sm text-zinc-500 mt-3 max-w-xl">
+      Referência visual de todos os componentes, estados e temas do app. Atualize este arquivo sempre que criar novos elementos.
+    </p>
+  </div>
+
+  <!-- ÍNDICE -->
+  <div class="mb-10 p-4 glass-card rounded-2xl">
+    <div class="section-title mb-3">Índice</div>
+    <div class="grid grid-cols-3 gap-2 text-xs text-zinc-400">
+      <a href="#buttons" class="hover:text-white transition-colors">→ Botões</a>
+      <a href="#badges" class="hover:text-white transition-colors">→ Badges & Tags</a>
+      <a href="#cards" class="hover:text-white transition-colors">→ Cards</a>
+      <a href="#inputs" class="hover:text-white transition-colors">→ Inputs & Selects</a>
+      <a href="#toggles" class="hover:text-white transition-colors">→ Toggles</a>
+      <a href="#stats" class="hover:text-white transition-colors">→ Estatísticas</a>
+      <a href="#workout" class="hover:text-white transition-colors">→ Workout</a>
+      <a href="#cardio" class="hover:text-white transition-colors">→ Cardio</a>
+      <a href="#themes" class="hover:text-white transition-colors">→ Temas</a>
+      <a href="#modals" class="hover:text-white transition-colors">→ Modais</a>
+      <a href="#achievements" class="hover:text-white transition-colors">→ Conquistas</a>
+      <a href="#states" class="hover:text-white transition-colors">→ Estados</a>
+    </div>
+  </div>
+
+  <!-- ─── BOTÕES ───────────────────────────────────────────────────── -->
+  <section id="buttons" class="mb-12">
+    <div class="section-title">Botões</div>
+    <div class="grid grid-cols-2 gap-6">
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Primário (.btn-akatsuki)</div>
+        <button class="btn-akatsuki w-full py-4 text-sm font-black">
+          <i data-lucide="zap" class="w-5 h-5"></i> INICIAR PROTOCOLO
+        </button>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Perigo</div>
+        <button class="w-full py-4 rounded-2xl border border-red-900/60 bg-red-900/10 text-red-400 text-sm font-black">
+          <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i> EXCLUIR
+        </button>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Secundário (ghost)</div>
+        <button class="w-full py-3 rounded-2xl border border-zinc-800 bg-transparent text-zinc-400 text-sm font-bold uppercase tracking-wider">
+          Cancelar
+        </button>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Ativo (tema)</div>
+        <button class="w-full py-3 rounded-2xl text-sm font-black uppercase" style="background:var(--theme-dim);border:1px solid var(--theme-accent);color:var(--theme-primary)">
+          <i data-lucide="check" class="w-4 h-4 inline mr-2"></i> SELECIONADO
+        </button>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Icon button</div>
+        <div class="flex gap-2">
+          <button class="w-10 h-10 rounded-full bg-zinc-900/80 border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+          </button>
+          <button class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--theme-dim);border:1px solid var(--theme-accent)">
+            <i data-lucide="flame" class="w-5 h-5" style="color:var(--theme-primary)"></i>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center text-zinc-500">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Hint (i)</div>
+        <div class="flex items-center gap-3">
+          <button class="w-4 h-4 rounded-full border border-zinc-700 text-zinc-600 flex items-center justify-center text-[9px] font-black">i</button>
+          <span class="text-xs text-zinc-500">Contextual ao lado de labels</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── BADGES ───────────────────────────────────────────────────── -->
+  <section id="badges" class="mb-12">
+    <div class="section-title">Badges & Tags</div>
+    <div class="flex flex-wrap gap-3">
+      <span class="tag tag-primary"><i data-lucide="zap" class="w-2.5 h-2.5"></i> HOJE</span>
+      <span class="tag tag-green"><i data-lucide="check" class="w-2.5 h-2.5"></i> FEITO</span>
+      <span class="tag tag-zinc">PRÓXIMO</span>
+      <span class="tag tag-yellow"><i data-lucide="trophy" class="w-2.5 h-2.5"></i> PR</span>
+      <span class="tag tag-blue">INFO</span>
+      <span class="tag tag-red">ATENÇÃO</span>
+      <span class="tag" style="background:rgba(107,114,128,.2);border:1px solid #4b5563;color:#9ca3af">AQUECIMENTO</span>
+    </div>
+    <div class="mt-4">
+      <div class="text-xs text-zinc-600 mb-2 font-mono">Streak badge</div>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-900/20 border border-orange-900/40">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-orange-400"></i>
+          <span class="text-sm font-black text-orange-400">12</span>
+          <span class="text-[10px] text-orange-600 font-bold uppercase">dias</span>
+        </div>
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-zinc-600"></i>
+          <span class="text-sm font-black text-zinc-600">0</span>
+          <span class="text-[10px] text-zinc-700 font-bold uppercase">dias</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CARDS ────────────────────────────────────────────────────── -->
+  <section id="cards" class="mb-12">
+    <div class="section-title">Cards</div>
+    <div class="grid grid-cols-2 gap-6">
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">glass-card (padrão)</div>
+        <div class="glass-card rounded-2xl p-4">
+          <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Volume Total</div>
+          <div class="text-2xl font-black font-mono text-white">4.820 <span class="text-base text-zinc-500">kg</span></div>
+          <div class="text-xs text-green-400 mt-1">↑ +12% vs anterior</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Stat card (3-col)</div>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="bg-white/5 rounded-2xl p-3 text-center border border-white/5">
+            <div class="text-lg font-black font-mono text-white">42:30</div>
+            <div class="text-[9px] text-zinc-500 uppercase mt-1">Tempo</div>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-3 text-center border border-white/5">
+            <div class="text-lg font-black text-white">8.2 <span class="text-xs">km</span></div>
+            <div class="text-[9px] text-zinc-500 uppercase mt-1">Distância</div>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-3 text-center border border-white/5">
+            <div class="text-lg font-black font-mono" style="color:var(--theme-primary)">5:11</div>
+            <div class="text-[9px] text-zinc-500 uppercase mt-1">Pace/km</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Card clicável (treino)</div>
+        <button class="glass-card rounded-2xl p-4 w-full text-left border-zinc-800/70 active:scale-[0.98] transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-black text-white">PEITO + TRÍCEPS</span>
+            <span class="tag tag-primary"><i data-lucide="zap" class="w-2.5 h-2.5"></i> HOJE</span>
+          </div>
+          <div class="text-xs text-zinc-500">6 exercícios · ~55 min</div>
+          <div class="flex gap-1 mt-2">
+            <span class="text-[9px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-500">Peito</span>
+            <span class="text-[9px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-500">Tríceps</span>
+          </div>
+        </button>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Card de insight</div>
+        <div class="glass-card rounded-2xl p-4 border-zinc-800/70">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl shrink-0 flex items-center justify-center" style="background:var(--theme-dim)">
+              <i data-lucide="trending-up" class="w-4 h-4" style="color:var(--theme-primary)"></i>
+            </div>
+            <div>
+              <div class="text-xs font-black text-white mb-0.5">Ciclo quase completo</div>
+              <div class="text-[10px] text-zinc-400 leading-relaxed">Faltam 2 treinos para completar o ciclo. Você está a 80% da meta.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── INPUTS ───────────────────────────────────────────────────── -->
+  <section id="inputs" class="mb-12">
+    <div class="section-title">Inputs & Selects</div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Text input (.input-ninja)</div>
+        <input class="input-ninja w-full" placeholder="Notas da sessão..." type="text"/>
+      </div>
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Select (.input-ninja)</div>
+        <select class="input-ninja w-full">
+          <option>Zona 2 · 30min</option>
+          <option>Zona 2 · 45min</option>
+          <option>VO2Max · 4×4</option>
+          <option>Livre</option>
+        </select>
+      </div>
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Número (peso/reps)</div>
+        <div class="flex gap-2">
+          <input class="input-ninja w-full text-center font-mono font-bold text-lg" placeholder="80.0" type="number"/>
+          <input class="input-ninja w-full text-center font-mono font-bold text-lg" placeholder="10" type="number"/>
+        </div>
+      </div>
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Search</div>
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-zinc-600 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input class="input-ninja w-full pl-9" placeholder="Buscar exercício..." type="text"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TOGGLES ──────────────────────────────────────────────────── -->
+  <section id="toggles" class="mb-12">
+    <div class="section-title">Toggles</div>
+    <div class="space-y-4 max-w-sm">
+      <div class="flex items-center justify-between p-4 glass-card rounded-2xl">
+        <div>
+          <div class="text-sm font-bold text-white">Som do Timer</div>
+          <div class="text-xs text-zinc-500">3 beeps ao completar o descanso</div>
+        </div>
+        <div class="relative w-12 h-6 rounded-full border cursor-pointer shrink-0" style="background:var(--theme-dim);border-color:var(--theme-accent)">
+          <div class="absolute top-0.5 right-0.5 w-5 h-5 rounded-full shadow-sm transition-all" style="background:var(--theme-primary)"></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-4 glass-card rounded-2xl">
+        <div>
+          <div class="text-sm font-bold text-white">Notificações</div>
+          <div class="text-xs text-zinc-500">Lembrete de treino diário</div>
+        </div>
+        <div class="relative w-12 h-6 rounded-full bg-zinc-800 border border-zinc-700 cursor-pointer shrink-0">
+          <div class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-zinc-600 shadow-sm transition-all"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ESTATÍSTICAS ─────────────────────────────────────────────── -->
+  <section id="stats" class="mb-12">
+    <div class="section-title">Estatísticas</div>
+    <div class="grid grid-cols-2 gap-6">
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Sparkline (inline)</div>
+        <div class="glass-card rounded-2xl p-4">
+          <div class="text-[10px] text-zinc-500 uppercase tracking-widest mb-2">Peso Corporal</div>
+          <div class="flex items-end gap-1 h-8">
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:40%"></div>
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:55%"></div>
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:50%"></div>
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:65%"></div>
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:60%"></div>
+            <div class="flex-1 bg-theme-primary/40 rounded-sm" style="height:72%"></div>
+            <div class="flex-1 rounded-sm" style="height:75%;background:var(--theme-primary)"></div>
+          </div>
+          <div class="flex justify-between mt-1">
+            <span class="text-[9px] text-zinc-600 font-mono">78.4 kg</span>
+            <span class="text-[9px] text-green-400 font-mono">79.1 kg ↑</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Progress ring (ciclo)</div>
+        <div class="glass-card rounded-2xl p-4 flex items-center gap-4">
+          <svg viewBox="0 0 36 36" class="w-14 h-14">
+            <circle cx="18" cy="18" r="15" fill="none" stroke="#27272a" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15" fill="none" stroke="var(--theme-primary)" stroke-width="3"
+                    stroke-dasharray="70.7 23.6" stroke-linecap="round"
+                    transform="rotate(-90 18 18)" opacity="0.9"/>
+          </svg>
+          <div>
+            <div class="text-2xl font-black text-white">4<span class="text-zinc-500 text-base">/6</span></div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider">Ciclo atual</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Heatmap (atividade)</div>
+        <div class="glass-card rounded-2xl p-4">
+          <div class="text-[10px] text-zinc-500 uppercase tracking-widest mb-2">Últimas 7 semanas</div>
+          <div class="grid grid-cols-7 gap-1">
+            ${Array.from({length:49}, (_,i) => {
+              const intensity = [0,0,1,0,1,0,0,1,0,0,1,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,1,0,0,0,1][i] || 0;
+              const cls = intensity ? 'style="background:var(--theme-primary);opacity:0.7"' : 'style="background:#27272a"';
+              return `<div class="w-4 h-4 rounded-sm" ${cls}></div>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Próxima conquista</div>
+        <div class="glass-card rounded-2xl p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <i data-lucide="trophy" class="w-4 h-4 text-yellow-400"></i>
+            <span class="text-xs font-black text-white">CENTURIÃO</span>
+          </div>
+          <div class="text-[10px] text-zinc-500 mb-2">100 treinos completados · 78/100</div>
+          <div class="h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+            <div class="h-full rounded-full bg-yellow-400" style="width:78%"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── WORKOUT VIEW ─────────────────────────────────────────────── -->
+  <section id="workout" class="mb-12">
+    <div class="section-title">Workout — Exercise Card</div>
+    <div class="phone-frame w-full max-w-sm">
+
+      <!-- Exercise card -->
+      <div class="glass-card rounded-2xl p-4 mb-3">
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <div class="min-w-0">
+            <button class="text-sm font-black text-white text-left hover:text-theme-primary transition-colors leading-tight">
+              Supino Reto com Barra
+            </button>
+            <div class="text-[10px] text-zinc-500 mt-0.5">4 × 8–10 reps</div>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <span class="tag tag-yellow"><i data-lucide="trophy" class="w-2.5 h-2.5"></i> PR</span>
+          </div>
+        </div>
+
+        <!-- Load target -->
+        <div class="text-[10px] font-mono mb-2 flex items-center gap-2">
+          <span class="flex items-center gap-0.5 font-bold" style="color:rgba(239,68,68,.7)">
+            <i data-lucide="crosshair" class="w-2.5 h-2.5"></i> META: 82.5kg
+          </span>
+          <button class="w-3 h-3 rounded-full border border-zinc-700 text-zinc-600 flex items-center justify-center text-[7px] font-black">i</button>
+        </div>
+
+        <!-- Last session context -->
+        <div class="mb-3">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[8px] text-zinc-600 font-bold uppercase tracking-wider flex items-center gap-1">
+              <i data-lucide="history" class="w-2.5 h-2.5"></i>
+              Última · há 3 dias
+            </span>
+            <button class="text-[9px] font-bold flex items-center gap-0.5 px-1.5 py-0.5 rounded" style="color:rgba(239,68,68,.6);background:var(--theme-dim);border:1px solid rgba(220,38,38,.3)">
+              <i data-lucide="copy" class="w-2.5 h-2.5"></i> repetir
+            </button>
+          </div>
+          <div class="flex items-center gap-2 mt-0.5">
+            <span class="text-[10px] font-mono text-zinc-500">80 × 8</span>
+            <span class="text-zinc-700 text-[9px]">·</span>
+            <span class="text-[10px] font-mono text-zinc-500">80 × 8</span>
+            <span class="text-zinc-700 text-[9px]">·</span>
+            <span class="text-[10px] font-mono text-zinc-500">80 × 6</span>
+          </div>
+        </div>
+
+        <!-- Sets -->
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="w-5 text-[10px] text-zinc-600 font-mono text-center font-bold">1</span>
+            <input class="input-ninja flex-1 text-center font-mono py-1.5 text-sm" placeholder="kg" value="80"/>
+            <input class="input-ninja flex-1 text-center font-mono py-1.5 text-sm" placeholder="reps" value="10"/>
+            <button class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-black transition-all" style="background:var(--theme-dim);border:1px solid var(--theme-accent);color:var(--theme-primary)">
+              ✓
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-5 text-[10px] text-zinc-600 font-mono text-center font-bold">2</span>
+            <input class="input-ninja flex-1 text-center font-mono py-1.5 text-sm" placeholder="kg" value="80"/>
+            <input class="input-ninja flex-1 text-center font-mono py-1.5 text-sm" placeholder="reps"/>
+            <button class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-zinc-600 text-xs font-black">
+              ○
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timer badge (inactive) -->
+      <div class="flex items-center justify-between px-2 mb-2">
+        <span class="text-[10px] text-zinc-600">Timer de descanso</span>
+        <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5">
+          <svg class="w-5 h-5 -rotate-90" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16" fill="none" stroke="#27272a" stroke-width="3"/>
+            <circle cx="18" cy="18" r="16" fill="none" stroke="var(--theme-primary)" stroke-width="3"
+                    stroke-dasharray="60 40" stroke-linecap="round"/>
+          </svg>
+          <span class="text-sm font-mono font-bold" style="color:var(--theme-primary)">1:30</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CARDIO VIEW ──────────────────────────────────────────────── -->
+  <section id="cardio" class="mb-12">
+    <div class="section-title">Cardio — Sessão Ativa</div>
+    <div class="phone-frame w-full max-w-sm" style="background:#020610">
+      <div class="text-center mb-4">
+        <div class="text-[10px] text-white/40 uppercase tracking-widest mb-1">ZONA 2 · 30MIN</div>
+        <div class="text-4xl font-black font-mono text-white">18:42</div>
+        <div class="text-xs text-white/40 mt-1">tempo atual</div>
+      </div>
+
+      <!-- Bloco atual -->
+      <div class="rounded-2xl p-4 mb-4 text-center" style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3)">
+        <div class="text-[10px] uppercase tracking-widest text-blue-400/60 mb-1">Bloco 2/4</div>
+        <div class="text-xl font-black text-blue-400">CORRIDA LEVE</div>
+        <div class="text-sm text-blue-300/60 mt-0.5">Zona 2 · manter frequência</div>
+        <div class="font-mono text-3xl font-black text-white mt-3">06:18</div>
+        <div class="text-[10px] text-white/30 mt-0.5">restante no bloco</div>
+      </div>
+
+      <!-- Controles -->
+      <div class="grid grid-cols-3 gap-2">
+        <button class="py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-black uppercase">Pular</button>
+        <button class="py-3 rounded-2xl text-black text-xs font-black uppercase" style="background:var(--theme-primary)">Pausar</button>
+        <button class="py-3 rounded-2xl bg-red-900/20 border border-red-900/40 text-red-400 text-xs font-black uppercase">Sair</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TEMAS ────────────────────────────────────────────────────── -->
+  <section id="themes" class="mb-12">
+    <div class="section-title">Paleta de Temas</div>
+    <div class="grid grid-cols-2 gap-3">
+      ${[
+        { name:'AMATERASU', key:'default', primary:'#ef4444', accent:'#dc2626', bg:'#050505' },
+        { name:'RAITON',    key:'raiton',  primary:'#22d3ee', accent:'#0891b2', bg:'#010A12' },
+        { name:'SAGE MODE', key:'emerald', primary:'#4ade80', accent:'#16a34a', bg:'#010805' },
+        { name:'SUSANOO',   key:'violet',  primary:'#a78bfa', accent:'#7c3aed', bg:'#030108' },
+        { name:'KURAMA',    key:'amber',   primary:'#fbbf24', accent:'#d97706', bg:'#060300' },
+        { name:'SAKURA',    key:'rose',    primary:'#fb7185', accent:'#e11d48', bg:'#060103' },
+        { name:'PERFORMANCE',key:'perf',  primary:'#3b82f6', accent:'#1d4ed8', bg:'#020610' },
+        { name:'GYM',       key:'gym',     primary:'#f97316', accent:'#c2410c', bg:'#080300' },
+        { name:'IRON',      key:'iron',    primary:'#d4d4d8', accent:'#a1a1aa', bg:'#000000' },
+        { name:'NIGHT',     key:'night',   primary:'#6366f1', accent:'#4338ca', bg:'#020108' },
+        { name:'GULFMAN',   key:'gulfman', primary:'#7A9A4A', accent:'#5E7848', bg:'#080B08' },
+        { name:'F-91W',     key:'f91w',    primary:'#FACC15', accent:'#CA9A04', bg:'#161616' },
+      ].map(t => `
+        <div class="rounded-2xl p-3 border" style="background:${t.bg};border-color:${t.accent}22">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-4 h-4 rounded-full" style="background:${t.primary}"></div>
+            <span class="text-xs font-black" style="color:${t.primary}">${t.name}</span>
+          </div>
+          <div class="flex gap-1">
+            <div class="flex-1 h-1 rounded-full" style="background:${t.primary}"></div>
+            <div class="flex-1 h-1 rounded-full" style="background:${t.accent}"></div>
+            <div class="flex-1 h-1 rounded-full bg-zinc-800"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+
+  <!-- ─── MODAIS ───────────────────────────────────────────────────── -->
+  <section id="modals" class="mb-12">
+    <div class="section-title">Modais</div>
+    <div class="grid grid-cols-2 gap-6">
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Hint modal</div>
+        <div class="glass-card rounded-3xl p-6 max-w-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:var(--theme-dim);border:1px solid var(--theme-accent)">
+              <i data-lucide="zap" class="w-4 h-4" style="color:var(--theme-primary)"></i>
+            </div>
+            <h3 class="text-white font-black text-base">Sequência de Treinos</h3>
+          </div>
+          <p class="text-sm text-zinc-400 leading-relaxed">Conta dias consecutivos com pelo menos um treino. O streak quebra se você passar um dia inteiro sem atividade.</p>
+          <button class="mt-4 w-full py-3 bg-zinc-900 border border-zinc-800 rounded-2xl text-zinc-400 text-sm font-bold">Entendi</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-3 font-mono">Frase motivacional (battle report)</div>
+        <div class="rounded-2xl border border-white/5 p-5 text-center" style="background:rgba(255,255,255,0.02)">
+          <i data-lucide="quote" class="w-4 h-4 mx-auto mb-2" style="color:rgba(239,68,68,.4)"></i>
+          <p class="text-sm italic text-zinc-400 leading-relaxed font-mono">"Hoje é vitória sobre si mesmo; amanhã será vitória sobre os outros."</p>
+          <p class="text-[10px] text-zinc-600 font-mono mt-2">— Miyamoto Musashi</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CONQUISTAS ───────────────────────────────────────────────── -->
+  <section id="achievements" class="mb-12">
+    <div class="section-title">Conquistas</div>
+    <div class="grid grid-cols-2 gap-3">
+      ${[
+        { icon:'zap',        name:'Primeira Faísca', desc:'1º treino concluído',       color:'text-yellow-400', earned:true  },
+        { icon:'trending-up',name:'Novo Recorde',    desc:'Primeiro PR registrado',     color:'text-green-400',  earned:true  },
+        { icon:'flame',      name:'Semana de Fogo',  desc:'7 dias de streak',           color:'text-orange-400', earned:false },
+        { icon:'trophy',     name:'Centurião',       desc:'100 treinos completados',    color:'text-purple-400', earned:false },
+      ].map(a => `
+        <div class="glass-card rounded-2xl p-3 flex items-center gap-3 ${a.earned ? '' : 'opacity-40'}">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${a.earned ? 'bg-yellow-900/20 border border-yellow-800/40' : 'bg-zinc-900 border border-zinc-800'}">
+            <i data-lucide="${a.icon}" class="w-5 h-5 ${a.earned ? a.color : 'text-zinc-700'}"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs font-black text-white truncate">${a.name}</div>
+            <div class="text-[10px] text-zinc-500 truncate">${a.desc}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+
+  <!-- ─── ESTADOS ──────────────────────────────────────────────────── -->
+  <section id="states" class="mb-12">
+    <div class="section-title">Estados de Interface</div>
+    <div class="grid grid-cols-3 gap-4">
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Empty state</div>
+        <div class="glass-card rounded-2xl p-6 text-center">
+          <div class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="dumbbell" class="w-6 h-6 text-zinc-700"></i>
+          </div>
+          <div class="text-sm font-black text-zinc-500">Sem treinos</div>
+          <div class="text-xs text-zinc-700 mt-1">Inicie seu primeiro protocolo</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Loading / skeleton</div>
+        <div class="glass-card rounded-2xl p-4 space-y-2">
+          <div class="h-3 rounded-full bg-zinc-800 animate-pulse w-3/4"></div>
+          <div class="h-3 rounded-full bg-zinc-800 animate-pulse w-full"></div>
+          <div class="h-3 rounded-full bg-zinc-800 animate-pulse w-1/2"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Success toast</div>
+        <div class="rounded-2xl p-3 flex items-center gap-3" style="background:rgba(20,83,45,.3);border:1px solid rgba(22,101,52,.5)">
+          <i data-lucide="check-circle" class="w-5 h-5 text-green-400 shrink-0"></i>
+          <span class="text-sm font-bold text-green-300">Treino salvo!</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Warning banner</div>
+        <div class="rounded-2xl p-3 flex items-center gap-3" style="background:rgba(113,63,18,.3);border:1px solid rgba(146,64,14,.5)">
+          <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-400 shrink-0"></i>
+          <span class="text-sm font-bold text-yellow-300">Streak em risco!</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Error state</div>
+        <div class="rounded-2xl p-3 flex items-center gap-3" style="background:rgba(127,29,29,.3);border:1px solid rgba(127,29,29,.5)">
+          <i data-lucide="x" class="w-5 h-5 text-red-400 shrink-0"></i>
+          <span class="text-sm font-bold text-red-300">Erro ao salvar</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-zinc-600 mb-2 font-mono">Phrase toast</div>
+        <div class="rounded-full px-4 py-2 mx-auto inline-block" style="background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.08)">
+          <span class="text-xs text-zinc-300 font-mono">Mais uma série.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="mt-12 pt-6 border-t border-zinc-800 text-center">
+    <div class="text-xs text-zinc-700 font-mono">Treino Monstro · Component Gallery · Atualizar ao adicionar novos componentes</div>
+  </div>
+
+  <script>
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>

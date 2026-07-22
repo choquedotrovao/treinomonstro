@@ -1,0 +1,73 @@
+const NINJA = {
+  mode:             'ninja',
+  workoutSingular:  'missão',
+  workoutPlural:    'missões',
+  historyLabel:     'Batalhas',
+  streakLabel:      'Ofensiva',
+  weekLabel:        'Ciclo Semanal',
+  weekUnit:         'missões',
+  startBtn:         'INICIAR PROTOCOLO',
+  finishBtn:        'Finalizar',
+  closeReport:      'ENCERRAR OPERAÇÃO',
+  reportTitle:      'RELATÓRIO DE BATALHA',
+  doneTile:         'Missão Cumprida!',
+  doneSub:          'Adicione uma nota sobre esta missão (opcional)',
+  emptyHistory:     'Nenhuma batalha registrada.',
+  emptyHistorySub:  'Comece sua primeira missão!',
+  lastWorkout:      'Última Batalha',
+  todayMission:     'Missão de Hoje',
+  progressLabel:    'Missões',
+  resetWeekBtn:     'Novo Ciclo',
+  chakra: {
+    label: 'Chakra',
+    none:  'SEM CHAKRA',
+    low:   'CARREGANDO',
+    mid:   'ATIVO',
+    high:  'MÁXIMO',
+    full:  'SUSANOO',
+  },
+  greeting: {
+    morning:   'Hora de conquistar o dia.',
+    afternoon: 'Mantenha o foco.',
+    night:     'Guerreiros não descansam.',
+  },
+};
+
+const NORMAL = {
+  mode:             'normal',
+  workoutSingular:  'treino',
+  workoutPlural:    'treinos',
+  historyLabel:     'Histórico',
+  streakLabel:      'Sequência',
+  weekLabel:        'Meta Semanal',
+  weekUnit:         'treinos',
+  startBtn:         'INICIAR TREINO',
+  finishBtn:        'Encerrar',
+  closeReport:      'CONCLUIR SESSÃO',
+  reportTitle:      'RESUMO DO TREINO',
+  doneTile:         'Treino Concluído!',
+  doneSub:          'Adicione uma nota sobre este treino (opcional)',
+  emptyHistory:     'Nenhum treino registrado.',
+  emptyHistorySub:  'Comece seu primeiro treino!',
+  lastWorkout:      'Último Treino',
+  todayMission:     'Treino de Hoje',
+  progressLabel:    'Treinos',
+  resetWeekBtn:     'Novo Ciclo',
+  chakra: {
+    label: 'Volume',
+    none:  'INATIVO',
+    low:   'INICIANDO',
+    mid:   'REGULAR',
+    high:  'BOM',
+    full:  'EXCELENTE',
+  },
+  greeting: {
+    morning:   'Hora de trabalhar duro.',
+    afternoon: 'Foco total na sessão.',
+    night:     'Recuperação também é treino.',
+  },
+};
+
+export function getLabels(appMode) {
+  return appMode === 'normal' ? NORMAL : NINJA;
+}

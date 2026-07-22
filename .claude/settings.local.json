@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module)",
+      "Bash(node --check \"c:\\\\xampp\\\\htdocs\\\\treino-monstro\\\\src\\\\controllers\\\\AppController.js\")",
+      "Bash(node --check \"c:\\\\xampp\\\\htdocs\\\\treino-monstro\\\\src\\\\views\\\\WorkoutView.js\")",
+      "Bash(node --check \"c:\\\\xampp\\\\htdocs\\\\treino-monstro\\\\src\\\\views\\\\HomeView.js\")",
+      "Bash(node --check \"c:\\\\xampp\\\\htdocs\\\\treino-monstro\\\\src\\\\app.js\")"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+.claude/
+├── settings.json (existia)
+└── commands/
+├── bump-sw.md → /bump-sw
+├── nova-feature.md → /nova-feature NOME DA FEATURE
+├── audit-view.md → /audit-view WorkoutView.js
+├── sprint.md → /sprint
+└── add-achievement.md → /add-achievement first_100kg
+Como usar:
+
+Command Quando usar
+/bump-sw Antes de qualquer deploy ou ao adicionar arquivo novo ao projeto
+/nova-feature Dia Off configurável Início de qualquer feature nova — força planejamento antes de código
+/audit-view DashboardView.js Quando suspeitar de bug em uma view ou antes de refatorar
+/sprint Início de sessão quando quiser priorizar o que atacar
+/add-achievement cardio_50km Sempre que criar novo achievement — garante estrutura correta
+O /nova-feature é o mais importante — ele te força a responder: objetivo, arquivos impactados, estado novo, action nova, riscos. Nenhum código antes de responder tudo. É o "pense antes de programar" do seu prompt original, mas aplicado na prática.

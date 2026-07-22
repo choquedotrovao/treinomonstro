@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Stop-Process -Name ngrok -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2; Start-Process -FilePath \"ngrok\" -ArgumentList \"start treino-monstro\" -WindowStyle Hidden; Start-Sleep -Seconds 4; try { $r = Invoke-RestMethod -Uri \"http://localhost:4040/api/tunnels\" -ErrorAction Stop; $r.tunnels | ForEach-Object { \"✓ $\\($_.public_url\\)/treino-monstro/\" } } catch { \"Erro ao obter URL: $_\" })",
+      "PowerShell(Get-Process -Name \"httpd\" -ErrorAction SilentlyContinue)",
+      "PowerShell(& \"C:\\\\xampp\\\\apache\\\\bin\\\\httpd.exe\" -k start 2>&1)"
+    ],
+    "additionalDirectories": [
+      "c:\\xampp\\htdocs\\treino-monstro\\src"
+    ]
+  }
+}

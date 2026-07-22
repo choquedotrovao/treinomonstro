@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEED — NINJINHA BOM DE BRIGA · v6.5.1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --accent: #ef4444; }
+    body { background: #09090b; color: #fff; font-family: 'ui-monospace', monospace; }
+    .input-s {
+      background: rgba(39,39,42,.9); border: 1px solid #3f3f46; border-radius: 8px;
+      padding: 10px 12px; width: 100%; color: #fff; font-family: inherit;
+      font-size: 13px; text-align: center; transition: border-color .15s;
+    }
+    .input-s:focus { outline: none; border-color: var(--accent); }
+    .input-s:read-only { opacity: .45; cursor: default; }
+    .input-s::placeholder { color: #52525b; }
+    .section-title {
+      font-size: 9px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: .12em; color: #71717a; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .section-title::before { content: ''; display: block; height: 1px; width: 12px; background: #3f3f46; }
+    .glass { background: rgba(24,24,27,.8); border: 1px solid #27272a; border-radius: 16px; padding: 16px; }
+    .btn-seed {
+      width: 100%; padding: 14px; background: var(--accent); color: #000;
+      font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .1em;
+      border: none; border-radius: 14px; cursor: pointer;
+      transition: opacity .15s, transform .1s; box-shadow: 0 0 24px rgba(239,68,68,.35);
+    }
+    .btn-seed:active { transform: scale(.97); opacity: .9; }
+    .field-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #52525b; margin-bottom: 4px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    #result { display: none; background: rgba(21,128,61,.15); border: 1px solid rgba(21,128,61,.4); border-radius: 12px; padding: 16px; text-align: center; margin-top: 12px; }
+    .ppl-card { background: rgba(39,39,42,.5); border: 1px solid #27272a; border-radius: 10px; padding: 10px; text-align: center; font-size: 9px; }
+    .ppl-card .label { color: #52525b; margin-bottom: 4px; }
+    .ppl-card .title { color: #fff; font-weight: 700; font-size: 10px; }
+    .ppl-card .sub { color: #52525b; margin-top: 2px; }
+    .ppl-A { border-color: rgba(239,68,68,.3); }
+    .ppl-B { border-color: rgba(59,130,246,.3); }
+    .rank-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #18181b; }
+    .rank-num { font-size: 9px; font-weight: 900; color: #52525b; width: 16px; }
+    .rank-name { font-size: 10px; font-weight: 700; color: #e4e4e7; flex: 1; }
+    .rank-tag { font-size: 8px; font-weight: 700; padding: 1px 6px; border-radius: 999px; }
+  </style>
+</head>
+<body class="min-h-screen pb-16">
+<div class="max-w-lg mx-auto px-4 pt-8 space-y-4">
+
+  <!-- Header -->
+  <div class="text-center mb-6">
+    <div class="text-[10px] font-black tracking-[.2em] text-red-500 mb-1">⬡ NINJINHA BOM DE BRIGA ⬡</div>
+    <h1 class="text-3xl font-black tracking-tight">SEED DE DADOS</h1>
+    <p class="text-[11px] text-zinc-500 mt-2">v6.5.1 · 15/07/2026 · grava tudo no localStorage</p>
+    <div class="mt-3 flex gap-2 justify-center flex-wrap">
+      <span class="badge" style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171">Cláudio Santana · 33 anos</span>
+      <span class="badge" style="background:rgba(39,39,42,.8);border:1px solid #3f3f46;color:#71717a">Personal: Pedro Henrique Vaz</span>
+      <span class="badge" style="background:rgba(39,39,42,.8);border:1px solid #3f3f46;color:#a1a1aa">Avaliação: 07/02/2026</span>
+      <span class="badge" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#4ade80">PPL Duplo · v6.5.1</span>
+    </div>
+    <a href="index.html" class="text-[10px] text-red-500/50 hover:text-red-400 mt-3 inline-block">← voltar ao app</a>
+  </div>
+
+  <!-- O que será gravado -->
+  <div class="glass" style="border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.05)">
+    <div class="text-[10px] text-blue-300/80 font-bold uppercase tracking-wider mb-2">O que será gravado</div>
+    <div class="text-[10px] text-zinc-400 space-y-1">
+      <div>✓ <b>biometrics</b> — dados completos da avaliação 07/02/2026 (peso atual do form)</div>
+      <div>✓ <b>bioHistory</b> — avaliação original 07/02/2026 como entrada histórica</div>
+      <div>✓ <b>bodyWeights</b> — 81,25 kg (fev/2026) + peso atual informado</div>
+      <div>✓ <b>userName / projectName</b> — CLÁUDIO SANTANA · NINJINHA BOM DE BRIGA</div>
+      <div>✓ <b>cycleOrder</b> — Push A → Legs A → Pull A → OFF → Push B → Legs B → Pull B → OFF</div>
+      <div>✓ <b>personalGoals</b> — 6 metas de 12 meses baseadas na auditoria</div>
+      <div>✓ <b>activeCommute</b> — 1,1 km · caminhada · 4,8 km/h</div>
+      <div>✓ <b>activityLevel</b> — 1,725 (moderado · 4-5×/sem)</div>
+      <div>✓ <b>settings</b> — incremento 2,5 kg · descanso 90s · autofill · sons</div>
+      <div>✓ <b>onboardingCompleted</b> — true (pula o wizard)</div>
+    </div>
+  </div>
+
+  <!-- Identidade -->
+  <div class="glass space-y-3">
+    <div class="section-title">Identidade do Atleta</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="col-span-2"><div class="field-label">Nome</div><input class="input-s" id="userName" value="CLÁUDIO SANTANA"></div>
+      <div class="col-span-2"><div class="field-label">Projeto</div><input class="input-s" id="projectName" value="NINJINHA BOM DE BRIGA"></div>
+      <div class="col-span-2"><div class="field-label">Academia</div><input class="input-s" id="academyName" value="" placeholder="(opcional)"></div>
+    </div>
+  </div>
+
+  <!-- Biometria -->
+  <div class="glass space-y-3">
+    <div class="section-title">Avaliação Física — 07/02/2026 (Pedro Henrique Vaz)</div>
+    <div class="glass" style="background:rgba(234,179,8,.04);border-color:rgba(234,179,8,.2)">
+      <div class="text-[9px] text-yellow-600 font-bold">Data da biometria = hoje. A avaliação de 07/02/2026 vai para o histórico.</div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Peso Avaliação (kg)</div><input class="input-s" id="bioWeightOrig" value="81.25" readonly></div>
+      <div><div class="field-label">Peso Atual (kg)</div><input class="input-s" id="weight" value="82"></div>
+      <div><div class="field-label">Altura (cm)</div><input class="input-s" id="height" value="188"></div>
+      <div><div class="field-label">% Gordura</div><input class="input-s" id="bodyFat" value="11.65"></div>
+      <div><div class="field-label">Massa Magra (kg)</div><input class="input-s" id="leanMass" value="71.79"></div>
+      <div><div class="field-label">Massa Muscular (kg)</div><input class="input-s" id="muscleMass" value="40.05"></div>
+      <div><div class="field-label">Peso Ósseo (kg)</div><input class="input-s" id="boneMass" value="12.15"></div>
+      <div><div class="field-label">Peso Desejável (kg)</div><input class="input-s" id="targetWeight" value="88"></div>
+      <div><div class="field-label">% GC Alvo</div><input class="input-s" id="targetBodyFat" value="12" placeholder="—"></div>
+    </div>
+    <div><div class="field-label">Data do registro (hoje)</div><input class="input-s" id="bioDate" type="date"></div>
+  </div>
+
+  <!-- Circunferências -->
+  <div class="glass space-y-3">
+    <div class="section-title">Circunferências (cm) — Avaliação 07/02/2026</div>
+    <div class="text-[9px] text-zinc-600 mb-2">Tronco</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Tórax</div><input class="input-s" id="torax" value="102"></div>
+      <div><div class="field-label">Cintura</div><input class="input-s" id="cintura" value="82"></div>
+      <div><div class="field-label">Abdome</div><input class="input-s" id="abdome" value="84"></div>
+      <div><div class="field-label">Quadril</div><input class="input-s" id="quadril" value="95"></div>
+      <div><div class="field-label">Escapular</div><input class="input-s" id="escapular" value="" placeholder="—"></div>
+    </div>
+    <div class="text-[9px] text-zinc-600 mt-2 mb-2">Braços</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Braço D Contraído</div><input class="input-s" id="bracoDirContraido" value="37.5"></div>
+      <div><div class="field-label">Braço E Contraído</div><input class="input-s" id="bracoEsqContraido" value="37.5"></div>
+      <div><div class="field-label">Braço D Relaxado</div><input class="input-s" id="bracoDirRelaxado" value="" placeholder="—"></div>
+      <div><div class="field-label">Braço E Relaxado</div><input class="input-s" id="bracoEsqRelaxado" value="" placeholder="—"></div>
+      <div><div class="field-label">Antebraço D</div><input class="input-s" id="antebracoDireito" value="28"></div>
+      <div><div class="field-label">Antebraço E</div><input class="input-s" id="antebracoEsquerdo" value="28"></div>
+    </div>
+    <div class="text-[9px] text-zinc-600 mt-2 mb-2">Pernas</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Coxa D</div><input class="input-s" id="coxaDireita" value="57"></div>
+      <div><div class="field-label">Coxa E</div><input class="input-s" id="coxaEsquerda" value="55.5"></div>
+      <div><div class="field-label">Panturrilha D</div><input class="input-s" id="panturrilhaDireita" value="35.5"></div>
+      <div><div class="field-label">Panturrilha E</div><input class="input-s" id="panturrilhaEsquerda" value="36"></div>
+    </div>
+    <div class="text-[9px] text-amber-600/80 mt-2 p-2 rounded-lg" style="background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2)">
+      ⚠ Assimetria de coxa: D 57 cm vs E 55,5 cm (diferença 1,5 cm — acima do limiar de 1,0 cm). Priorizar Afundo unilateral com foco no lado esquerdo.
+    </div>
+  </div>
+
+  <!-- Dobras -->
+  <div class="glass space-y-3">
+    <div class="section-title">Dobras Cutâneas — Pollock 7 (mm)</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Peitoral</div><input class="input-s" id="dobraPeitoral" value="7"></div>
+      <div><div class="field-label">Axilar Média</div><input class="input-s" id="dobraAxilarMedia" value="5"></div>
+      <div><div class="field-label">Tricipital</div><input class="input-s" id="dobraTricipital" value="6"></div>
+      <div><div class="field-label">Subescapular</div><input class="input-s" id="dobraSubescapular" value="11"></div>
+      <div><div class="field-label">Supra-Ilíaca</div><input class="input-s" id="dobraSupraIliaca" value="7"></div>
+      <div><div class="field-label">Abdominal</div><input class="input-s" id="dobraAbdominal" value="14"></div>
+      <div><div class="field-label">Coxa</div><input class="input-s" id="dobraCoxa" value="9"></div>
+    </div>
+    <div class="text-[9px] text-zinc-600 mt-1">
+      Soma 7 dobras: <span id="somaLabel" class="text-red-400 font-bold">—</span>
+      <span class="ml-3 text-zinc-700">%GC pelo personal: 11,65 %</span>
+    </div>
+  </div>
+
+  <!-- Protocolo PPL -->
+  <div class="glass space-y-3">
+    <div class="section-title">Ciclo PPL Duplo — v6.5.1 (ordem do personal)</div>
+    <div class="glass" style="background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2)">
+      <div class="text-[9px] text-red-400/80 font-bold mb-3">CICLO A — Push → Legs → Pull → OFF</div>
+      <div class="grid grid-cols-4 gap-2 mb-4">
+        <div class="ppl-card ppl-A">
+          <div class="label">Pos 1</div>
+          <div class="title">Push A</div>
+          <div class="sub">Peito + Delt</div>
+        </div>
+        <div class="ppl-card ppl-A">
+          <div class="label">Pos 2</div>
+          <div class="title">Legs A</div>
+          <div class="sub">Quadríceps</div>
+        </div>
+        <div class="ppl-card ppl-A">
+          <div class="label">Pos 3</div>
+          <div class="title">Pull A</div>
+          <div class="sub">Largura Costas</div>
+        </div>
+        <div class="ppl-card" style="border-color:#27272a;opacity:.5">
+          <div class="label">Pos 4</div>
+          <div class="title">OFF</div>
+          <div class="sub">Descanso</div>
+        </div>
+      </div>
+      <div class="text-[9px] text-blue-400/80 font-bold mb-3">CICLO B — Push → Legs → Pull → OFF</div>
+      <div class="grid grid-cols-4 gap-2">
+        <div class="ppl-card ppl-B">
+          <div class="label">Pos 5</div>
+          <div class="title">Push B</div>
+          <div class="sub">Ombros + Peito</div>
+        </div>
+        <div class="ppl-card ppl-B">
+          <div class="label">Pos 6</div>
+          <div class="title">Legs B</div>
+          <div class="sub">Posterior + Glúteo</div>
+        </div>
+        <div class="ppl-card ppl-B">
+          <div class="label">Pos 7</div>
+          <div class="title">Pull B</div>
+          <div class="sub">Costas V + Trap</div>
+        </div>
+        <div class="ppl-card" style="border-color:#27272a;opacity:.5">
+          <div class="label">Pos 8</div>
+          <div class="title">OFF</div>
+          <div class="sub">Descanso</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-[9px] text-zinc-600">
+      IDs built-in: Push A=1 · Legs A=2 · Pull A=3 · Push B=4 · Legs B=5 · Pull B=6<br>
+      cycleOrder gravado: <span class="text-red-400 font-mono">['1','2','3',null,'4','5','6',null]</span>
+    </div>
+  </div>
+
+  <!-- Deslocamento Ativo -->
+  <div class="glass space-y-3">
+    <div class="section-title">Deslocamento Ativo</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><div class="field-label">Distância ida (km)</div><input class="input-s" id="commuteKm" value="1.1"></div>
+      <div><div class="field-label">Velocidade (km/h)</div><input class="input-s" id="commuteSpeed" value="4.8"></div>
+    </div>
+    <div class="text-[9px] text-zinc-600">
+      Modo: caminhada · ida + volta = 2,2 km/sessão · ~28 min · ~67 kcal (MET 3,5)
+    </div>
+  </div>
+
+  <!-- Ranking muscular (visual) -->
+  <div class="glass">
+    <div class="section-title">Ranking de Prioridade Muscular (auditoria v6.3)</div>
+    <div id="rank-list">
+      <div class="rank-row">
+        <div class="rank-num">1º</div>
+        <div class="rank-name">Dorsais (Lat)</div>
+        <span class="rank-tag" style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)">MÁXIMA</span>
+        <div style="font-size:8px;color:#52525b">Maior impacto V-Taper</div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-num">2º</div>
+        <div class="rank-name">Coxas / Glúteo</div>
+        <span class="rank-tag" style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)">MÁXIMA</span>
+        <div style="font-size:8px;color:#52525b">Gargalo + assimetria E</div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-num">3º</div>
+        <div class="rank-name">Deltoides (Lateral)</div>
+        <span class="rank-tag" style="background:rgba(234,179,8,.1);color:#fbbf24;border:1px solid rgba(234,179,8,.2)">ALTA</span>
+        <div style="font-size:8px;color:#52525b">Alarga o topo do V</div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-num">4º</div>
+        <div class="rank-name">Peito</div>
+        <span class="rank-tag" style="background:rgba(234,179,8,.1);color:#fbbf24;border:1px solid rgba(234,179,8,.2)">ALTA</span>
+        <div style="font-size:8px;color:#52525b">Inclinado prioritário</div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-num">5º</div>
+        <div class="rank-name">Panturrilha</div>
+        <span class="rank-tag" style="background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.2)">MÉDIA</span>
+        <div style="font-size:8px;color:#52525b">4×/ciclo · teto genético</div>
+      </div>
+      <div class="rank-row" style="border:none">
+        <div class="rank-num">6º</div>
+        <div class="rank-name">Braços</div>
+        <span class="rank-tag" style="background:rgba(39,39,42,.8);color:#71717a;border:1px solid #3f3f46">BAIXA</span>
+        <div style="font-size:8px;color:#52525b">Volume adequado · progredir</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metas 12 meses -->
+  <div class="glass">
+    <div class="section-title">Metas 12 Meses (jul/2026 → jul/2027)</div>
+    <div class="space-y-2">
+      <div class="flex justify-between items-center text-[9px]">
+        <span class="text-zinc-500 uppercase tracking-wider">Métrica</span>
+        <span class="text-zinc-500 uppercase tracking-wider">Atual → Meta</span>
+      </div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">Peso corporal</span><span class="text-white font-mono">82 kg → <b>86-88 kg</b></span></div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">% Gordura</span><span class="text-white font-mono">11,65 % → <b>11-13 %</b></span></div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">Massa Magra</span><span class="text-white font-mono">71,79 kg → <b>75-77 kg</b></span></div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">Braço contraído</span><span class="text-white font-mono">37,5 cm → <b>39 cm</b></span></div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">Panturrilha</span><span class="text-white font-mono">35,8 cm → <b>37-38 cm</b></span></div>
+      <div class="flex justify-between text-[10px]"><span class="text-zinc-400">Coxa (D)</span><span class="text-white font-mono">57 cm → <b>60+ cm</b></span></div>
+      <div class="mt-2 text-[9px] text-zinc-700 font-mono">Teto natural estimado: 93-96 kg · lean 82-86 kg · braço 41-42 cm</div>
+    </div>
+  </div>
+
+  <!-- TDEE / Macros (read-only) -->
+  <div class="glass">
+    <div class="section-title">TDEE &amp; Macros Alvo (Katch-McArdle · ×1,725)</div>
+    <div class="grid grid-cols-2 gap-2 text-[10px]">
+      <div class="ppl-card"><div class="label">BMR</div><div class="title">~1.921 kcal</div></div>
+      <div class="ppl-card"><div class="label">TDEE</div><div class="title">~3.314 kcal</div></div>
+      <div class="ppl-card"><div class="label">Alvo bulk</div><div class="title">3.500-3.700</div></div>
+      <div class="ppl-card"><div class="label">Proteína</div><div class="title">158 g/dia</div></div>
+      <div class="ppl-card"><div class="label">Gordura</div><div class="title">~90 g/dia</div></div>
+      <div class="ppl-card"><div class="label">Carbo</div><div class="title">~540 g/dia</div></div>
+    </div>
+    <div class="text-[9px] text-zinc-700 mt-3 font-mono">2,2g/kg lean × 71,79kg · 25% kcal gordura · restante carbo</div>
+  </div>
+
+  <!-- Botão -->
+  <button class="btn-seed" onclick="seedData()">⬡ GRAVAR TUDO NO APP</button>
+
+  <div id="result">
+    <div class="text-green-400 font-black text-sm mb-2">✓ ATLETA REGISTRADO COM SUCESSO</div>
+    <div id="result-detail" class="text-[10px] text-zinc-400 mb-4 space-y-1 text-left"></div>
+    <a href="index.html"
+       class="inline-block px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all"
+       style="background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);color:#f87171">
+      ABRIR O APP →
+    </a>
+  </div>
+
+  <!-- Preview -->
+  <div class="glass mt-4">
+    <div class="section-title">Preview — biometrics (gravação)</div>
+    <pre id="preview" class="text-[9px] text-zinc-500 overflow-auto max-h-48 leading-5"></pre>
+  </div>
+
+</div>
+
+<script>
+  const PREFIX = 'monstro_v2_';
+
+  // IDs dos treinos built-in — ordem PPL correta: Push→Pull→Legs
+  // Push A=1 · Pull A=3 · Legs A=2 · Push B=4 · Pull B=6 · Legs B=5
+  // Ordem correta do personal: Push→Legs→Pull + OFF + Push→Legs→Pull + OFF
+  const CYCLE_ORDER = ['1', '2', '3', null, '4', '5', '6', null];
+
+  // Avaliação original 07/02/2026 — dados reais do personal Pedro Henrique Vaz
+  const ORIGINAL_BIO = {
+    date:               '2026-02-07T12:00:00.000Z',
+    weight:             81.25,
+    height:             188,
+    bodyFat:            11.65,
+    leanMass:           71.79,
+    muscleMass:         40.05,
+    boneMass:           12.15,
+    targetWeight:       88,
+    targetBodyFat:      12,
+    torax:              102,
+    cintura:            82,
+    abdome:             84,
+    quadril:            95,
+    bracoDirContraido:  37.5,
+    bracoEsqContraido:  37.5,
+    antebracoDireito:   28,
+    antebracoEsquerdo:  28,
+    coxaDireita:        57,
+    coxaEsquerda:       55.5,
+    panturrilhaDireita: 35.5,
+    panturrilhaEsquerda:36,
+    dobraPeitoral:      7,
+    dobraAxilarMedia:   5,
+    dobraTricipital:    6,
+    dobraSubescapular:  11,
+    dobraSupraIliaca:   7,
+    dobraAbdominal:     14,
+    dobraCoxa:          9,
+  };
+
+  // Metas pessoais baseadas na auditoria v6.3
+  const PERSONAL_GOALS = [
+    { id: `goal_${Date.now()}_1`, text: 'Peso corporal: 86-88 kg com BF ≤ 13%',    done: false, createdAt: new Date().toISOString() },
+    { id: `goal_${Date.now()}_2`, text: 'Braço contraído: 39 cm (de 37,5 cm)',      done: false, createdAt: new Date().toISOString() },
+    { id: `goal_${Date.now()}_3`, text: 'Coxa: 60 cm bilateral (corrigir assimetria)', done: false, createdAt: new Date().toISOString() },
+    { id: `goal_${Date.now()}_4`, text: 'Panturrilha: 37-38 cm (de 35,8 cm)',       done: false, createdAt: new Date().toISOString() },
+    { id: `goal_${Date.now()}_5`, text: 'Consistência: 5+ sessões por ciclo',        done: false, createdAt: new Date().toISOString() },
+    { id: `goal_${Date.now()}_6`, text: 'Calórico: 3.500-3.700 kcal/dia sustentado',done: false, createdAt: new Date().toISOString() },
+  ];
+
+  function n(id) {
+    const v = document.getElementById(id)?.value?.trim();
+    if (!v || v === '—') return undefined;
+    const f = parseFloat(v);
+    return isNaN(f) ? undefined : f;
+  }
+  function s(id) { return document.getElementById(id)?.value?.trim() || undefined; }
+
+  function clean(obj) {
+    return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined));
+  }
+
+  function buildCurrentBio() {
+    const dateVal = document.getElementById('bioDate').value;
+    return clean({
+      date:                 dateVal ? new Date(dateVal + 'T12:00:00').toISOString() : new Date().toISOString(),
+      weight:               n('weight'),
+      height:               n('height'),
+      bodyFat:              n('bodyFat'),
+      leanMass:             n('leanMass'),
+      muscleMass:           n('muscleMass'),
+      boneMass:             n('boneMass'),
+      targetWeight:         n('targetWeight'),
+      targetBodyFat:        n('targetBodyFat'),
+      torax:                n('torax'),
+      cintura:              n('cintura'),
+      abdome:               n('abdome'),
+      quadril:              n('quadril'),
+      escapular:            n('escapular'),
+      bracoDirContraido:    n('bracoDirContraido'),
+      bracoEsqContraido:    n('bracoEsqContraido'),
+      bracoDirRelaxado:     n('bracoDirRelaxado'),
+      bracoEsqRelaxado:     n('bracoEsqRelaxado'),
+      antebracoDireito:     n('antebracoDireito'),
+      antebracoEsquerdo:    n('antebracoEsquerdo'),
+      coxaDireita:          n('coxaDireita'),
+      coxaEsquerda:         n('coxaEsquerda'),
+      panturrilhaDireita:   n('panturrilhaDireita'),
+      panturrilhaEsquerda:  n('panturrilhaEsquerda'),
+      dobraPeitoral:        n('dobraPeitoral'),
+      dobraAxilarMedia:     n('dobraAxilarMedia'),
+      dobraTricipital:      n('dobraTricipital'),
+      dobraSubescapular:    n('dobraSubescapular'),
+      dobraSupraIliaca:     n('dobraSupraIliaca'),
+      dobraAbdominal:       n('dobraAbdominal'),
+      dobraCoxa:            n('dobraCoxa'),
+    });
+  }
+
+  function updatePreview() {
+    const bio  = buildCurrentBio();
+    const vals = [n('dobraPeitoral'), n('dobraAxilarMedia'), n('dobraTricipital'),
+                  n('dobraSubescapular'), n('dobraSupraIliaca'), n('dobraAbdominal'), n('dobraCoxa')].filter(Boolean);
+    const soma = vals.reduce((a, b) => a + b, 0);
+    document.getElementById('somaLabel').textContent = soma ? soma + ' mm' : '—';
+    document.getElementById('preview').textContent   = JSON.stringify(bio, null, 2);
+  }
+
+  document.getElementById('bioDate').value = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('.input-s').forEach(el => el.addEventListener('input', updatePreview));
+  updatePreview();
+
+  function seedData() {
+    const currentBio = buildCurrentBio();
+    if (!currentBio.weight) { alert('Preencha pelo menos o Peso Atual.'); return; }
+
+    // 1 — biometrics
+    localStorage.setItem(PREFIX + 'biometrics', JSON.stringify(currentBio));
+
+    // 2 — bioHistory (avaliação original 07/02/2026)
+    const existingHistory = (() => {
+      try { return JSON.parse(localStorage.getItem(PREFIX + 'bioHistory') || '[]'); } catch { return []; }
+    })();
+    const filteredHistory = existingHistory.filter(e => !e.date?.startsWith('2026-02-07'));
+    localStorage.setItem(PREFIX + 'bioHistory', JSON.stringify([ORIGINAL_BIO, ...filteredHistory].slice(0, 20)));
+
+    // 3 — bodyWeights
+    const existingWeights = (() => {
+      try { return JSON.parse(localStorage.getItem(PREFIX + 'bodyWeights') || '[]'); } catch { return []; }
+    })();
+    const todayKey = currentBio.date.slice(0, 10);
+    const origKey  = ORIGINAL_BIO.date.slice(0, 10);
+    const filtered = existingWeights.filter(e =>
+      e.date?.slice(0, 10) !== todayKey && e.date?.slice(0, 10) !== origKey
+    );
+    const merged = [
+      { date: currentBio.date,   value: currentBio.weight  },
+      { date: ORIGINAL_BIO.date, value: ORIGINAL_BIO.weight },
+      ...filtered,
+    ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 365);
+    localStorage.setItem(PREFIX + 'bodyWeights', JSON.stringify(merged));
+
+    // 4 — identidade
+    const userName    = document.getElementById('userName').value.trim()    || 'CLÁUDIO SANTANA';
+    const projectName = document.getElementById('projectName').value.trim() || 'NINJINHA BOM DE BRIGA';
+    const academyName = document.getElementById('academyName').value.trim();
+    localStorage.setItem(PREFIX + 'userName',    JSON.stringify(userName));
+    localStorage.setItem(PREFIX + 'projectName', JSON.stringify(projectName));
+    if (academyName) localStorage.setItem(PREFIX + 'academyName', JSON.stringify(academyName));
+
+    // 5 — ciclo PPL (ordem correta do personal: Push→Legs→Pull + OFF · Push→Legs→Pull + OFF)
+    localStorage.setItem(PREFIX + 'cycleOrder',    JSON.stringify(CYCLE_ORDER));
+    localStorage.setItem(PREFIX + 'cycleGoal',     JSON.stringify(6));
+    localStorage.setItem(PREFIX + 'cyclePosition', JSON.stringify(0));
+    localStorage.setItem(PREFIX + 'trainingStyle', JSON.stringify('ppl'));
+    localStorage.setItem(PREFIX + 'goal',          JSON.stringify('hipertrofia'));
+    localStorage.setItem(PREFIX + 'experience',    JSON.stringify('intermediario'));
+
+    // 6 — nível de atividade
+    localStorage.setItem(PREFIX + 'activityLevel', JSON.stringify(1.725));
+
+    // 7 — deslocamento ativo
+    const commuteKm    = parseFloat(document.getElementById('commuteKm').value)    || 1.1;
+    const commuteSpeed = parseFloat(document.getElementById('commuteSpeed').value)  || 4.8;
+    localStorage.setItem(PREFIX + 'activeCommute', JSON.stringify({
+      enabled: true, oneWayDistanceKm: commuteKm, mode: 'walk', estimatedSpeed: commuteSpeed,
+    }));
+
+    // 8 — configurações de treino (baseadas no programa v6.3)
+    localStorage.setItem(PREFIX + 'defaultRestTime',     JSON.stringify(90));   // média push/pull/legs
+    localStorage.setItem(PREFIX + 'weightIncrement',     JSON.stringify(2.5));  // padrão do programa
+    localStorage.setItem(PREFIX + 'vibrationEnabled',    JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'timerSoundEnabled',   JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'autoFillOnStart',     JSON.stringify(true));  // atleta consistente
+    localStorage.setItem(PREFIX + 'cardioCountsStreak',  JSON.stringify(true));  // deslocamento conta
+    localStorage.setItem(PREFIX + 'defaultCardioProtocol', JSON.stringify('zona2-30'));
+
+    // 9 — metas pessoais (12 meses · auditoria v6.3)
+    const existingGoals = (() => {
+      try { return JSON.parse(localStorage.getItem(PREFIX + 'personalGoals') || '[]'); } catch { return []; }
+    })();
+    if (existingGoals.length === 0) {
+      localStorage.setItem(PREFIX + 'personalGoals', JSON.stringify(PERSONAL_GOALS));
+    }
+
+    // 10 — onboarding
+    localStorage.setItem(PREFIX + 'onboardingCompleted', JSON.stringify(true));
+
+    // 11 — migração: marca todas as flags como já executadas
+    localStorage.setItem(PREFIX + 'migrated_v2',         JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'migrated_v3',         JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'migrated_ppl_order',  JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'migrated_off_slot',   JSON.stringify(true));
+    localStorage.setItem(PREFIX + 'migrated_cycle_plp',  JSON.stringify(true));
+
+    // Resultado
+    const leanMassVal = currentBio.leanMass ?? 71.79;
+    const bmr   = Math.round(370 + 21.6 * leanMassVal);
+    const tdee  = Math.round(bmr * 1.725);
+    const imc   = (currentBio.weight / (1.88 * 1.88)).toFixed(1);
+
+    document.getElementById('result-detail').innerHTML = [
+      `<div>✓ <b>biometrics</b>: ${Object.keys(currentBio).length} campos · ${currentBio.weight}kg · ${currentBio.bodyFat}%GC</div>`,
+      `<div>✓ <b>bioHistory</b>: avaliação 07/02/2026 gravada (81,25kg · 11,65%)</div>`,
+      `<div>✓ <b>bodyWeights</b>: ${merged.length} registro(s) — ${merged[0]?.value}kg hoje + 81,25kg fev/2026</div>`,
+      `<div>✓ <b>userName</b>: ${userName}</div>`,
+      `<div>✓ <b>projectName</b>: ${projectName}</div>`,
+      academyName ? `<div>✓ <b>academyName</b>: ${academyName}</div>` : '',
+      `<div>✓ <b>cycleOrder</b>: Push A → Legs A → Pull A → OFF → Push B → Legs B → Pull B → OFF</div>`,
+      `<div>✓ <b>activeCommute</b>: ${commuteKm}km · walk · ${commuteSpeed}km/h</div>`,
+      `<div>✓ <b>personalGoals</b>: ${existingGoals.length === 0 ? PERSONAL_GOALS.length + ' metas criadas' : 'mantidas (já existiam)'}</div>`,
+      `<div>✓ <b>settings</b>: rest 90s · inc 2,5kg · autoFill · sons · cardio conta streak</div>`,
+      `<hr style="border-color:#27272a;margin:8px 0">`,
+      `<div class="text-zinc-500">BMR: ~${bmr} kcal · TDEE: ~${tdee} kcal/dia · IMC: ${imc} kg/m²</div>`,
+      `<div class="text-zinc-500">Braço: 37,5cm bilateral · Coxa: 57/55,5cm (⚠ assimetria) · Pant: 35,5/36cm</div>`,
+      `<div class="text-zinc-500">Lean mass: ${leanMassVal}kg · Alvo 12m: 75-77kg · Teto natural: 82-86kg</div>`,
+    ].filter(Boolean).join('');
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>

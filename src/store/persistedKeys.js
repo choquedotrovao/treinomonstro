@@ -1,0 +1,16 @@
+export const PERSISTED_KEYS = [
+  'logs', 'history', 'cycleDone', 'cycleStart', 'prs', 'theme', 'workoutStartTime',
+  'bodyWeights', 'cycleGoal', 'biometrics', 'bioHistory', 'customWorkouts',
+  'workoutExercises', 'workoutMeta', 'appMode', 'userName', 'projectName',
+  'lightMode', 'activityLevel', 'hiddenSections', 'weekPlan', 'circumHistory',
+  'cycleOrder', 'cyclePosition', 'inactivityResetDays', 'completedCycles', 'personalGoals', 'achievements', 'cardioHistory',
+  'defaultRestTime', 'vibrationEnabled', 'timerSoundEnabled', 'weightIncrement', 'autoFillOnStart',
+  'activeCardioSession', 'cardioCountsStreak',
+  'weeklyCardioKmGoal', 'weeklyCardioMinGoal', 'defaultCardioProtocol',
+  'analyticsTab', 'notificationsEnabled', 'notificationTime', 'notifLastDate',
+  'retroLastShown', 'lastCardioMode',
+  'activeCommute',
+  'exerciseNotes',
+  'onboardingCompleted', 'goal', 'trainingStyle', 'experience', 'academyName',
+  'lastOffDayDate',
+];

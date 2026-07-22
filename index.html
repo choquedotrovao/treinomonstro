@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ForjaFit" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>FINAL FORM — ForjaFit</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&family=Nanum+Myeongjo:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans:  ['Inter', 'sans-serif'],
+            mono:  ['JetBrains Mono', 'monospace'],
+            serif: ['Nanum Myeongjo', 'serif'],
+          },
+          colors: {
+            theme: {
+              primary: 'var(--theme-primary)',
+              accent:  'var(--theme-accent)',
+              dim:     'var(--theme-dim)',
+              dark:    'var(--theme-dark)',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Lucide Icons (versão fixada para evitar quebras por atualizações) -->
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+  <!-- Estilos customizados -->
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+
+<body>
+  <!-- Efeito scanlines retro -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Partículas de ember (preenchidas via JS) -->
+  <div id="ember-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true"></div>
+
+  <!-- Shell do app -->
+  <div id="app-container" class="flex flex-col h-screen relative z-10">
+
+    <!-- Header fixo -->
+    <header class="fixed top-0 inset-x-0 z-40 bg-black/80 backdrop-blur-xl border-b border-white/5 h-16
+                   flex items-center justify-between px-4 shadow-[0_5px_20px_rgba(0,0,0,0.5)]">
+      <div id="header-content" class="w-full flex justify-between items-center"></div>
+    </header>
+
+    <!-- Conteúdo principal (injetado via JS) -->
+    <main id="main-content"
+          class="flex-1 pt-24 px-4 space-y-6 overflow-y-auto overscroll-contain no-scrollbar">
+    </main>
+
+    <!-- Nav Dock inferior -->
+    <div id="mobile-nav"
+         class="fixed bottom-6 inset-x-0 z-50 flex justify-center px-4 animate-float-nav"
+         style="transition: transform 0.3s ease">
+      <div class="nav-dock w-full max-w-[400px] rounded-2xl flex justify-between items-center p-2">
+
+        <button data-navigate="home" data-tab="home"
+                class="group relative flex-1 flex flex-col items-center justify-center h-14 rounded-xl transition-all duration-300 nav-btn">
+          <div class="relative z-10 p-1 group-active:scale-90 transition-transform">
+            <i data-lucide="home" class="w-5 h-5 transition-colors"></i>
+          </div>
+          <span class="text-[9px] font-black tracking-widest mt-0.5 transition-all">HOME</span>
+          <div class="active-indicator absolute -bottom-2 w-1 h-1 rounded-full opacity-0 transition-all"></div>
+        </button>
+
+        <button data-navigate="treinar" data-tab="treinar"
+                class="group relative flex-1 flex flex-col items-center justify-center h-14 rounded-xl transition-all duration-300 nav-btn">
+          <div class="relative z-10 p-1 group-active:scale-90 transition-transform">
+            <i data-lucide="dumbbell" class="w-5 h-5 transition-colors"></i>
+          </div>
+          <span class="text-[9px] font-black tracking-widest mt-0.5 transition-all">TREINAR</span>
+          <div class="active-indicator absolute -bottom-2 w-1 h-1 rounded-full opacity-0 transition-all"></div>
+        </button>
+
+        <button data-navigate="evoluir" data-tab="evoluir"
+                class="group relative flex-1 flex flex-col items-center justify-center h-14 rounded-xl transition-all duration-300 nav-btn">
+          <div class="relative z-10 p-1 group-active:scale-90 transition-transform">
+            <i data-lucide="trending-up" class="w-5 h-5 transition-colors"></i>
+          </div>
+          <span class="text-[9px] font-black tracking-widest mt-0.5 transition-all">EVOLUIR</span>
+          <div class="active-indicator absolute -bottom-2 w-1 h-1 rounded-full opacity-0 transition-all"></div>
+        </button>
+
+        <button data-navigate="cardio" data-tab="cardio"
+                class="group relative flex-1 flex flex-col items-center justify-center h-14 rounded-xl transition-all duration-300 nav-btn">
+          <div class="relative z-10 p-1 group-active:scale-90 transition-transform">
+            <i data-lucide="wind" class="w-5 h-5 transition-colors"></i>
+          </div>
+          <span class="text-[9px] font-black tracking-widest mt-0.5 transition-all">CARDIO</span>
+          <div class="active-indicator absolute -bottom-2 w-1 h-1 rounded-full opacity-0 transition-all"></div>
+        </button>
+
+        <button data-navigate="corpo" data-tab="corpo"
+                class="group relative flex-1 flex flex-col items-center justify-center h-14 rounded-xl transition-all duration-300 nav-btn">
+          <div class="relative z-10 p-1 group-active:scale-90 transition-transform">
+            <i data-lucide="circle-user" class="w-5 h-5 transition-colors"></i>
+          </div>
+          <span class="text-[9px] font-black tracking-widest mt-0.5 transition-all">CORPO</span>
+          <div class="active-indicator absolute -bottom-2 w-1 h-1 rounded-full opacity-0 transition-all"></div>
+        </button>
+
+      </div>
+    </div>
+
+  </div><!-- #app-container -->
+
+  <!-- Camada de modais (timer, confirm, notes) -->
+  <div id="modal-layer"  class="relative z-[60]"></div>
+
+  <!-- Camada do battle report (acima de tudo) -->
+  <div id="report-layer" class="relative z-[95]"></div>
+
+  <!-- Embers (animados via JS para reagir ao tema) -->
+  <script>
+    function renderEmbers() {
+      const el = document.getElementById('ember-container');
+      el.innerHTML = '';
+      for (let i = 0; i < 22; i++) {
+        const d = document.createElement('div');
+        d.className = 'ember';
+        d.style.left            = Math.random() * 100 + '%';
+        d.style.top             = (Math.random() * 100 + 50) + '%';
+        d.style.animationDelay  = (Math.random() * 6) + 's';
+        d.style.animationDuration = (6 + Math.random() * 5) + 's';
+        d.style.opacity         = (Math.random() * 0.6 + 0.1).toFixed(2);
+        const size = (Math.random() * 3 + 1).toFixed(1) + 'px';
+        d.style.width  = size;
+        d.style.height = size;
+        el.appendChild(d);
+      }
+    }
+    renderEmbers();
+
+    // Re-renderiza embers quando o tema muda (MutationObserver)
+    new MutationObserver(renderEmbers).observe(document.body, {
+      attributes: true, attributeFilter: ['data-theme'],
+    });
+  </script>
+
+  <!-- Módulo principal (ES Module) -->
+  <script type="module" src="src/app.js"></script>
+
+  <!-- PWA: registro do Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('[SW] Ativo:', reg.scope))
+          .catch(err => console.warn('[SW] Falha:', err));
+      });
+    }
+  </script>
+</body>
+</html>

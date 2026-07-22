@@ -1,0 +1,508 @@
+/* ══════════════════════════════════════════════════════════════
+   TEMAS
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --theme-primary: #ef4444;
+  --theme-accent:  #dc2626;
+  --theme-dim:     rgba(127, 29, 29, 0.2);
+  --theme-dark:    #450a0a;
+  --ember-color:   #ef4444;
+  --theme-rgb:     220, 38, 38;
+
+  --color-success: #4ade80;
+  --color-danger:  #f87171;
+  --color-warning: #fbbf24;
+  --color-info:    #60a5fa;
+  --color-cardio:  #22d3ee;
+  --color-streak:  #fb923c;
+  --color-rare:    #c084fc;
+}
+
+.text-color-success { color: var(--color-success); }
+.text-color-danger  { color: var(--color-danger);  }
+.text-color-warning { color: var(--color-warning); }
+.text-color-info    { color: var(--color-info);    }
+.text-color-cardio  { color: var(--color-cardio);  }
+.text-color-streak  { color: var(--color-streak);  }
+.text-color-rare    { color: var(--color-rare);    }
+
+.bg-color-success { background-color: var(--color-success); }
+.bg-color-danger  { background-color: var(--color-danger);  }
+.bg-color-warning { background-color: var(--color-warning); }
+.bg-color-info    { background-color: var(--color-info);    }
+.bg-color-cardio  { background-color: var(--color-cardio);  }
+.bg-color-streak  { background-color: var(--color-streak);  }
+.bg-color-rare    { background-color: var(--color-rare);    }
+
+.border-color-success { border-color: var(--color-success); }
+.border-color-danger  { border-color: var(--color-danger);  }
+.border-color-info    { border-color: var(--color-info);    }
+.border-color-cardio  { border-color: var(--color-cardio);  }
+
+/* ══════════════════════════════════════════════════════════════
+   BASE
+   ══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--body-bg, #050505);
+  color: #fff;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+#main-content {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  /* Safe area bottom para PWA standalone (iOS home indicator) */
+  padding-bottom: max(8rem, calc(6rem + env(safe-area-inset-bottom)));
+}
+
+/* Nav dock acima do home indicator no modo PWA */
+#mobile-nav {
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EFEITOS VISUAIS
+   ══════════════════════════════════════════════════════════════ */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.18) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.25;
+}
+
+.glass-card {
+  background: var(--card-bg, linear-gradient(145deg, rgba(24,24,27,0.9), rgba(9,9,11,0.95)));
+  border: 1px solid var(--card-border, rgba(255,255,255,0.05));
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
+}
+
+.nav-dock {
+  background: var(--nav-bg, rgba(9,9,11,0.85));
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--nav-border, rgba(255,255,255,0.08));
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BOTÃO PRINCIPAL (Akatsuki)
+   ══════════════════════════════════════════════════════════════ */
+.btn-akatsuki {
+  position: relative;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(to bottom right, #18181b, #000);
+  border: 1px solid var(--theme-dim);
+  color: var(--theme-primary);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.btn-akatsuki:active {
+  transform: scale(0.95);
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 20px var(--theme-dim);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INPUTS
+   ══════════════════════════════════════════════════════════════ */
+.input-ninja {
+  background: #09090b;
+  border: 1px solid #27272a;
+  color: white;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.input-ninja:focus {
+  outline: none;
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 12px var(--theme-dim);
+  transform: scale(1.02);
+}
+.input-ninja:disabled {
+  opacity: 0.3;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+.input-ninja::placeholder { color: #3f3f46; }
+
+/* ══════════════════════════════════════════════════════════════
+   NAV INDICATORS
+   ══════════════════════════════════════════════════════════════ */
+.active-indicator {
+  background-color: var(--theme-primary);
+  box-shadow: 0 0 10px var(--theme-primary);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EMBER / PARTÍCULAS
+   ══════════════════════════════════════════════════════════════ */
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ember-color);
+  box-shadow: 0 0 8px var(--ember-color);
+  pointer-events: none;
+  z-index: 0;
+  animation: float-ember 8s linear infinite;
+}
+
+@keyframes float-ember {
+  0%   { transform: translateY(0) translateX(0);    opacity: 0; }
+  15%  { opacity: 0.7; }
+  85%  { opacity: 0.5; }
+  100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ANIMAÇÕES
+   ══════════════════════════════════════════════════════════════ */
+@keyframes sharingan-spin {
+  to { transform: rotate(360deg); }
+}
+.spin-slow { animation: sharingan-spin 12s linear infinite; }
+
+@keyframes phrase-fade {
+  0%   { opacity: 0; transform: translateY(6px); }
+  15%  { opacity: 1; transform: translateY(0);   }
+  80%  { opacity: 1; transform: translateY(0);   }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+.workout-phrase-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 8px 20px;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 85vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: phrase-fade 3s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stagger-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.animate-zoom-in { animation: zoomIn 0.2s ease-out forwards; }
+
+@keyframes floatNav {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-float-nav { animation: floatNav 0.3s ease-out forwards; }
+
+/* Ripple */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-anim 0.6s linear;
+  background-color: rgba(255,255,255,0.18);
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to { transform: scale(4); opacity: 0; }
+}
+.ripple-target { position: relative; overflow: hidden; }
+
+/* ══════════════════════════════════════════════════════════════
+   GLITCH TEXT
+   ══════════════════════════════════════════════════════════════ */
+.glitch-text { position: relative; }
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--theme-primary);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-a 5s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--theme-accent);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-b 5s infinite linear alternate-reverse;
+}
+@keyframes glitch-a {
+  0%   { clip: rect(31px, 9999px, 94px, 0); }
+  25%  { clip: rect(91px, 9999px, 43px, 0); }
+  50%  { clip: rect(15px, 9999px, 80px, 0); }
+  75%  { clip: rect(99px, 9999px, 12px, 0); }
+  100% { clip: rect(69px, 9999px, 95px, 0); }
+}
+@keyframes glitch-b {
+  0%   { clip: rect(65px, 9999px, 97px, 0); }
+  100% { clip: rect(4px,  9999px, 94px, 0); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODO CLARO
+   ══════════════════════════════════════════════════════════════ */
+body[data-light-mode] {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+body[data-light-mode] .scanlines    { display: none; }
+body[data-light-mode] #ember-container { display: none; }
+
+body[data-light-mode] .glass-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.97), rgba(248,250,252,0.99));
+  border-color: rgba(0,0,0,0.07) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+body[data-light-mode] .nav-dock {
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(0,0,0,0.08) !important;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.06);
+}
+body[data-light-mode] header {
+  background: rgba(255,255,255,0.95) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05) !important;
+}
+body[data-light-mode] .btn-akatsuki {
+  background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  border-color: rgba(0,0,0,0.1) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  color: var(--theme-primary);
+}
+body[data-light-mode] .input-ninja {
+  background: #f8fafc;
+  border-color: rgba(0,0,0,0.15) !important;
+  color: #1e293b;
+}
+body[data-light-mode] .input-ninja::placeholder { color: #94a3b8; }
+
+/* Backgrounds escuros → claros */
+body[data-light-mode] [class*="bg-black"]  { background-color: rgba(241,245,249,0.9) !important; }
+body[data-light-mode] [class*="bg-zinc-9"] { background-color: rgba(255,255,255,0.95) !important; }
+body[data-light-mode] [class*="bg-zinc-8"] { background-color: rgba(241,245,249,0.9) !important; }
+body[data-light-mode] [class*="bg-zinc-7"] { background-color: rgba(226,232,240,0.9) !important; }
+
+/* Texto branco/cinza escuro → texto legível no fundo claro */
+body[data-light-mode] [class*="text-white"] { color: #1e293b !important; }
+body[data-light-mode] [class*="text-zinc-3"] { color: #1e293b !important; }
+body[data-light-mode] [class*="text-zinc-4"] { color: #334155 !important; }
+body[data-light-mode] [class*="text-zinc-5"] { color: #475569 !important; }
+body[data-light-mode] [class*="text-zinc-6"] { color: #64748b !important; }
+body[data-light-mode] [class*="text-zinc-7"] { color: #94a3b8 !important; }
+
+/* Bordas escuras → sutis */
+body[data-light-mode] [class*="border-zinc-8"] { border-color: rgba(0,0,0,0.09) !important; }
+body[data-light-mode] [class*="border-zinc-7"] { border-color: rgba(0,0,0,0.07) !important; }
+body[data-light-mode] [class*="border-white"]  { border-color: rgba(0,0,0,0.05) !important; }
+
+/* Modal overlays */
+body[data-light-mode] [class*="bg-black/9"],
+body[data-light-mode] [class*="bg-black/8"],
+body[data-light-mode] [class*="bg-black/7"],
+body[data-light-mode] [class*="bg-black/6"] {
+  background-color: rgba(15,23,42,0.8) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PULSE RÁPIDO
+   ══════════════════════════════════════════════════════════════ */
+@keyframes pulse-fast {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+.animate-pulse-fast { animation: pulse-fast 1.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+
+/* ══════════════════════════════════════════════════════════════
+   SET DONE POP (haptic + micro-animação ao marcar série)
+   ══════════════════════════════════════════════════════════════ */
+@keyframes setDonePop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.35); }
+  65%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.set-done-pop { animation: setDonePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* ══════════════════════════════════════════════════════════════
+   CELEBRATION OVERLAY
+   ══════════════════════════════════════════════════════════════ */
+@keyframes celebrationPing {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.celebration-ping {
+  animation: celebrationPing 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes celebrationBurst {
+  0%   { transform: rotate(var(--a)) translateY(0);    opacity: 1; }
+  100% { transform: rotate(var(--a)) translateY(-56px); opacity: 0; }
+}
+.celebration-burst {
+  position: absolute; inset: 0; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.celebration-particle {
+  position: absolute;
+  width: 7px; height: 7px; border-radius: 50%;
+  animation: celebrationBurst 0.9s ease-out var(--delay, 0s) both;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   THEME SURFACE SYSTEM
+   Cada tema define bodyBg, cardBg, cardBorder, navBg, navBorder,
+   headerBg, headerBorder via CSS vars no ThemeService.apply().
+   As regras abaixo consomem essas vars com especificidade suficiente
+   para sobrepor as classes utilitárias do Tailwind.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Header — especificidade (0,1,1) supera classes Tailwind (0,1,0) sem !important,
+   o que permite body[data-light-mode] header !important sobrepor corretamente */
+body[data-theme] header {
+  background: var(--header-bg, rgba(9,9,11,0.95));
+  border-color: var(--header-border, rgba(255,255,255,0.06));
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   IRON — Industrial Minimal
+   Superfície sólida, sem glass blur, geometria quadrada.
+   Referência visual: Terminal / Hevy dark / WHOOP
+   ══════════════════════════════════════════════════════════════ */
+body[data-theme="iron"] .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 2px 8px rgba(0,0,0,0.9) !important;
+  border-radius: 8px !important;
+}
+body[data-theme="iron"] .btn-akatsuki {
+  border-radius: 6px !important;
+}
+body[data-theme="iron"] .input-ninja {
+  border-radius: 6px !important;
+  background: #0a0a0a !important;
+}
+body[data-theme="iron"] .nav-dock {
+  border-radius: 12px !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PERFORMANCE — Clinical Data Dashboard
+   Borda esquerda azul tipo métrica de painel; cards mais sólidos.
+   Referência visual: Garmin Connect / Oura Ring dashboard
+   ══════════════════════════════════════════════════════════════ */
+body[data-theme="performance"] .glass-card {
+  border-left: 2px solid rgba(59,130,246,0.28) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.7), inset 1px 0 0 rgba(59,130,246,0.08) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GYM — Alta Energia
+   Borda superior laranja saturada; atmosfera quente e física.
+   Referência visual: Nike Training Club / MyFitnessPal dark
+   ══════════════════════════════════════════════════════════════ */
+body[data-theme="gym"] .glass-card {
+  border-top: 1px solid rgba(249,115,22,0.22) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 -1px 0 rgba(249,115,22,0.12) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NIGHT — Deep Space / Imersivo
+   Glow ambiente violeta nos cards; profundidade espacial.
+   Referência visual: Spotify dark / Arc Browser / Linear dark
+   ══════════════════════════════════════════════════════════════ */
+body[data-theme="night"] .glass-card {
+  box-shadow:
+    0 4px 30px rgba(0,0,0,0.85),
+    0 0 60px rgba(99,102,241,0.05),
+    inset 0 1px 0 rgba(99,102,241,0.08) !important;
+}
+body[data-theme="night"] .nav-dock {
+  box-shadow:
+    0 -4px 30px rgba(0,0,0,0.9),
+    0 0 40px rgba(99,102,241,0.06) !important;
+}
+
+/* Per-theme spin animation speeds */
+body[data-theme="performance"] .spin-slow { animation-duration:  7s; }
+body[data-theme="gym"]         .spin-slow { animation-duration:  6s; }
+body[data-theme="iron"]        .spin-slow { animation-duration: 18s; }
+body[data-theme="night"]       .spin-slow { animation-duration: 16s; }
+body[data-theme="gulfman"]     .spin-slow { animation-duration: 10s; }
+body[data-theme="f91w"]        .spin-slow { animation-duration: 20s; }
+
+/* F-91W — LCD utility, retangular, seco */
+body[data-theme="f91w"] .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(64,64,64,0.55) !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.85) !important;
+  border-radius: 4px !important;
+}
+body[data-theme="f91w"] .btn-akatsuki { border-radius: 4px !important; }
+body[data-theme="f91w"] .input-ninja  { border-radius: 4px !important; background: #161616 !important; border-color: rgba(64,64,64,0.60) !important; }
+body[data-theme="f91w"] .nav-dock     { border-radius: 6px !important; backdrop-filter: none !important; }
+/* Space Mono para números: replica o display LCD do F-91W */
+body[data-theme="f91w"] .font-mono,
+body[data-theme="f91w"] [class*="font-mono"] { font-family: 'Space Mono', monospace; }
+
+/* GULFMAN — resina matte tática, sem glow */
+body[data-theme="gulfman"] .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-top: 2px solid rgba(94,120,72,0.30) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.9), inset 0 1px 0 rgba(94,120,72,0.06) !important;
+  border-radius: 8px !important;
+}
+body[data-theme="gulfman"] .btn-akatsuki { border-radius: 6px !important; }
+body[data-theme="gulfman"] .input-ninja  { border-radius: 6px !important; background: #050805 !important; }
+body[data-theme="gulfman"] .nav-dock     { border-radius: 10px !important; backdrop-filter: none !important; }

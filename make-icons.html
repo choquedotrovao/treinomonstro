@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>ForjaFit — Gerar Ícones PWA</title>
+  <style>
+    body { background: #09090b; color: #fff; font-family: monospace; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; gap: 24px; }
+    h1 { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: .15em; color: #ef4444; margin: 0; }
+    .row { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+    .card { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .label { font-size: 10px; color: #52525b; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+    a.btn {
+      display: inline-block; padding: 10px 24px;
+      background: #ef4444; color: #000; font-weight: 900; font-size: 11px;
+      text-transform: uppercase; letter-spacing: .1em; border-radius: 10px;
+      text-decoration: none; transition: opacity .15s;
+    }
+    a.btn:hover { opacity: .85; }
+    p { font-size: 10px; color: #52525b; margin: 0; text-align: center; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<h1>⬡ ForjaFit — Ícones PWA</h1>
+<p>Clique em cada botão para baixar o PNG.<br>Salve em <b>icons/icon-192.png</b> e <b>icons/icon-512.png</b>.</p>
+
+<div class="row">
+  <div class="card">
+    <div class="label">192 × 192</div>
+    <canvas id="c192" width="192" height="192"></canvas>
+    <a id="dl192" class="btn" download="icon-192.png">↓ Baixar 192px</a>
+  </div>
+  <div class="card">
+    <div class="label">512 × 512</div>
+    <canvas id="c512" width="512" height="512"></canvas>
+    <a id="dl512" class="btn" download="icon-512.png">↓ Baixar 512px</a>
+  </div>
+</div>
+
+<script>
+  function drawIcon(canvas) {
+    const s = canvas.width;
+    const cx = s / 2;
+    const ctx = canvas.getContext('2d');
+
+    // Fundo com cantos arredondados
+    const r = s * 0.1875; // ~96/512
+    ctx.beginPath();
+    ctx.moveTo(r, 0);
+    ctx.lineTo(s - r, 0);
+    ctx.quadraticCurveTo(s, 0, s, r);
+    ctx.lineTo(s, s - r);
+    ctx.quadraticCurveTo(s, s, s - r, s);
+    ctx.lineTo(r, s);
+    ctx.quadraticCurveTo(0, s, 0, s - r);
+    ctx.lineTo(0, r);
+    ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath();
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fill();
+
+    // Glow radial
+    const glow = ctx.createRadialGradient(cx, cx, 0, cx, cx, s * 0.45);
+    glow.addColorStop(0,   'rgba(239,68,68,0.22)');
+    glow.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(cx, cx, s * 0.45, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Anel externo
+    ctx.beginPath();
+    ctx.arc(cx, cx, s * 0.426, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(239,68,68,0.5)';
+    ctx.lineWidth = s * 0.006;
+    ctx.stroke();
+
+    // Anel interno
+    ctx.beginPath();
+    ctx.arc(cx, cx, s * 0.383, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(239,68,68,0.2)';
+    ctx.lineWidth = s * 0.002;
+    ctx.stroke();
+
+    // Texto "FF"
+    const fontSize = s * 0.44;
+    ctx.font = `900 ${fontSize}px Arial Black, Impact, sans-serif`;
+    ctx.fillStyle = '#ef4444';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    // Leve sombra/glow no texto
+    ctx.shadowColor = 'rgba(239,68,68,0.6)';
+    ctx.shadowBlur = s * 0.05;
+    ctx.fillText('FF', cx, cx + s * 0.03);
+    ctx.shadowBlur = 0;
+  }
+
+  const c192 = document.getElementById('c192');
+  const c512 = document.getElementById('c512');
+
+  drawIcon(c192);
+  drawIcon(c512);
+
+  // Links de download
+  document.getElementById('dl192').href = c192.toDataURL('image/png');
+  document.getElementById('dl512').href = c512.toDataURL('image/png');
+</script>
+</body>
+</html>
