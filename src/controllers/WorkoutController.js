@@ -113,6 +113,21 @@ export class WorkoutController {
     }));
   }
 
+  toggleSkipExercise(wId, exId) {
+    this.#store.setState(s => {
+      const exLogs  = s.logs[wId]?.[exId] ?? {};
+      const skipped = !exLogs._skip;
+      const newEx   = { ...exLogs };
+      if (skipped) newEx._skip = true; else delete newEx._skip;
+      return {
+        logs: {
+          ...s.logs,
+          [wId]: { ...s.logs[wId], [exId]: newEx },
+        },
+      };
+    });
+  }
+
   /* ─── Finalizar treino ────────────────────────────────────────── */
 
   finishWorkout(notes = '') {
@@ -127,8 +142,9 @@ export class WorkoutController {
 
     w.exercises.forEach(ex => {
       const exLogs = wLogs[ex.id] ?? {};
+      if (exLogs._skip) return;
       sessionSets[ex.id] = Object.entries(exLogs)
-        .filter(([k]) => k !== '_c')
+        .filter(([k]) => k !== '_c' && k !== '_skip')
         .sort(([a], [b]) => Number(a) - Number(b))
         .map(([, s]) => s);
 
@@ -146,6 +162,7 @@ export class WorkoutController {
     const breakdown = w.exercises
       .map(ex => {
         const exLogs = wLogs[ex.id] ?? {};
+        if (exLogs._skip) return null;
         let exVol = 0, maxW = 0;
         Object.values(exLogs).forEach(s => {
           if (!s.done || !s.w || !s.r || s.warmup) return;
@@ -224,7 +241,8 @@ export class WorkoutController {
     };
 
     const newHistory    = [entry, ...state.history];
-    const newCycleDone  = [...(state.cycleDone ?? []), w.id];
+    const prevCycleDone = state.cycleDone ?? [];
+    const newCycleDone  = prevCycleDone.includes(w.id) ? prevCycleDone : [...prevCycleDone, w.id];
     // Registra o início do ciclo na primeira sessão
     const cycleStart    = ((state.cycleDone ?? []).length === 0 && !state.cycleStart)
       ? (state.workoutStartTime ?? Date.now())
@@ -236,6 +254,7 @@ export class WorkoutController {
       entryId:   entry.id,
       vol,
       reps:      totalReps,
+      sets:      sessionSets,
       duration,
       mvp,
       breakdown,
@@ -247,6 +266,7 @@ export class WorkoutController {
     const progressionChips = [];
     w.exercises.forEach(ex => {
       const exLogs = wLogs[ex.id] ?? {};
+      if (exLogs._skip) return;
       const doneSets = Object.values(exLogs).filter(s => s.done && !s.warmup && s.r);
       if (!doneSets.length) return;
       const match = String(ex.reps ?? '').match(/(\d+)\s*[-–]\s*(\d+)/);
@@ -259,9 +279,9 @@ export class WorkoutController {
     stats.progressionChips = progressionChips;
 
     const { cycleOrder = [], cyclePosition = 0 } = state;
-    let nextPos = cycleOrder.length
-      ? (cyclePosition + 1) % cycleOrder.length
-      : 0;
+    // Avança sempre +1 a partir de onde o ciclo está — liberdade de treinar fora de ordem
+    // sem pular semanas inteiras no ponteiro do ciclo
+    const nextPos = cycleOrder.length ? (cyclePosition + 1) % cycleOrder.length : 0;
 
     const earned    = state.achievements ?? [];
     const cycleGoal = state.cycleGoal ?? 6;
@@ -316,11 +336,14 @@ export class WorkoutController {
     stats.quote       = quoteObj.text;
     stats.quoteAuthor = quoteObj.author ?? null;
 
+    // Reset do ciclo ao dar volta (caso ciclo não tenha slot Off no final)
+    const wrapping = nextPos === 0 && cycleOrder.length > 0;
+
     this.#timer.stop();
     this.#store.setState({
       history:               newHistory,
-      cycleDone:             newCycleDone,
-      cycleStart,
+      cycleDone:             wrapping ? [] : newCycleDone,
+      cycleStart:            wrapping ? null : cycleStart,
       workoutStartTime:      null,
       activeModal:           'battle-report',
       modalData:             stats,

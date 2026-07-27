@@ -82,7 +82,7 @@ function renderResumeBanner(workoutId, startTime, workouts) {
           <div class="text-xs text-zinc-500 font-mono mt-0.5">${formatDuration(elapsed)} decorrido</div>
         </div>
         <div class="w-11 h-11 rounded-full bg-theme-primary/10 border border-theme-accent flex items-center justify-center shrink-0">
-          <i data-lucide="play" class="w-5 h-5 text-theme-primary"></i>
+          <i data-lucide="zap" class="w-5 h-5 text-theme-primary"></i>
         </div>
       </div>
     </div>
@@ -223,11 +223,20 @@ export function renderDashboard(state, workouts, protocols = []) {
             </div>
           ` : ''}
           <div class="flex gap-2">
+            <button data-action="open-cycle-modal"
+                    class="ripple-target flex-1 py-2.5 rounded-xl bg-theme-dark/60 border border-theme-accent/30 text-xs text-theme-primary
+                           font-bold transition-all uppercase flex items-center justify-center gap-2 active:scale-[0.98]">
+              <i data-lucide="layers" class="w-3 h-3"></i> Ver Ciclo
+            </button>
+            <button data-action="open-workout-picker"
+                    class="ripple-target flex-1 py-2.5 rounded-xl bg-black/40 border border-zinc-800 text-xs text-zinc-400
+                           font-bold transition-all uppercase flex items-center justify-center gap-2 active:scale-[0.98]">
+              <i data-lucide="list" class="w-3 h-3"></i> Escolher
+            </button>
             <button data-action="start-new-week"
-                    class="ripple-target flex-1 py-2.5 rounded-xl bg-black/40 border border-zinc-800 text-xs text-zinc-500
-                           font-bold hover:bg-theme-dim hover:text-theme-primary hover:border-theme-dim
-                           transition-all uppercase flex items-center justify-center gap-2 active:scale-[0.98]">
-              <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Novo Ciclo
+                    class="ripple-target px-3 py-2.5 rounded-xl bg-black/40 border border-zinc-800 text-xs text-zinc-500
+                           font-bold transition-all uppercase flex items-center justify-center gap-2 active:scale-[0.98]">
+              <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
             </button>
           </div>
         </div>
@@ -406,7 +415,7 @@ function renderProtocolCard(protocol, cardioHistory, idx) {
         <div class="w-11 h-11 rounded-full bg-theme-dim border border-theme-dim
                     group-hover:border-theme-accent group-hover:shadow-[0_0_15px_var(--theme-dim)]
                     flex items-center justify-center shrink-0 transition-all mt-0.5">
-          <i data-lucide="play" class="w-5 h-5 text-theme-primary"></i>
+          <i data-lucide="zap" class="w-5 h-5 text-theme-primary"></i>
         </div>
       </div>
     </div>
@@ -500,7 +509,7 @@ function renderFlexCard(w, cycleDone, idx, cycleNextId, consecutiveDays = 0) {
               : 'Tudo opcional — faça o que fizer sentido hoje'}
           </p>
         </div>
-        <i data-lucide="leaf" class="w-6 h-6 text-cyan-900/60 shrink-0 mt-0.5 ml-2"></i>
+        <i data-lucide="wind" class="w-6 h-6 text-cyan-900/60 shrink-0 mt-0.5 ml-2"></i>
       </div>
       ${!done ? `
         <div class="flex gap-2 mt-3.5">
@@ -581,7 +590,7 @@ function renderWorkoutCard(w, cycleDone, history, idx, todayPlan = null, cycleNe
             </span>
             ${isScheduled
               ? `<span class="text-[10px] font-bold text-theme-primary flex items-center gap-1 bg-theme-dim px-2 py-0.5 rounded border border-theme-accent ${done ? '' : 'animate-pulse'}">
-                   <i data-lucide="calendar-check" class="w-3 h-3"></i> HOJE
+                   <i data-lucide="calendar" class="w-3 h-3"></i> HOJE
                  </span>`
               : ''}
             ${isCycleNext && !isScheduled
@@ -667,6 +676,16 @@ export function mountDashboard(container, handler) {
   delegate(container, '[data-action="start-new-week"]', 'click', (e, el) => {
     createRipple(e, el);
     handler('start-new-week');
+  });
+
+  delegate(container, '[data-action="open-cycle-modal"]', 'click', (e, el) => {
+    createRipple(e, el);
+    handler('open-cycle-modal');
+  });
+
+  delegate(container, '[data-action="open-workout-picker"]', 'click', (e, el) => {
+    createRipple(e, el);
+    handler('open-workout-picker');
   });
 
   delegate(container, '[data-action="register-off-day"]', 'click', (e, el) => {

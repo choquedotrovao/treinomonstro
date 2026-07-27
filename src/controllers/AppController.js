@@ -14,6 +14,7 @@ import {
   patchSetsContainer,
   patchProgressionBadge,
   patchExerciseNote,
+  patchExerciseSkip,
   patchTimedSetCountdown,
   countSets,
 } from "../views/WorkoutView.js";
@@ -779,15 +780,13 @@ export class AppController {
 
   #startElapsedTicker(startTime) {
     this.#stopElapsedTicker();
-    this.#elapsedInterval = setInterval(() => {
+    const update = () => {
       const el = document.getElementById("elapsed-workout");
-      if (!el) {
-        this.#stopElapsedTicker();
-        return;
-      }
-      const min = Math.round((Date.now() - startTime) / 60000);
-      el.textContent = formatDuration(min);
-    }, 60000);
+      if (!el) { this.#stopElapsedTicker(); return; }
+      el.textContent = formatDuration(Math.round((Date.now() - startTime) / 60000));
+    };
+    update(); // atualiza imediatamente (não aguarda 60s para exibir)
+    this.#elapsedInterval = setInterval(update, 60000);
   }
 
   #stopElapsedTicker() {
@@ -816,6 +815,11 @@ export class AppController {
 
       const newEx = newLogs[ex.id] ?? {};
       const prevEx = prevLogs[ex.id] ?? {};
+
+      // Patch de skip: atualiza visualmente o card sem re-render total
+      if (!!newEx._skip !== !!prevEx._skip) {
+        patchExerciseSkip(this.#main, wId, ex.id, !!newEx._skip);
+      }
       const newCount = countSets(newEx, ex.sets);
       const prevCount = countSets(prevEx, ex.sets);
 
@@ -1168,6 +1172,12 @@ export class AppController {
       case "exercise-demo":
         this.#showExerciseDemoModal(state.modalData);
         break;
+      case "cycle-overview":
+        this.#showCycleModal();
+        break;
+      case "workout-picker":
+        this.#showWorkoutPickerModal();
+        break;
     }
   }
 
@@ -1210,6 +1220,9 @@ export class AppController {
 
     const motivMsg    = s.quote       ?? 'Você venceu a versão de ontem.';
     const motivAuthor = s.quoteAuthor ?? null;
+    const totalDoneSets = s.sets != null && typeof s.sets === 'object'
+      ? Object.values(s.sets).reduce((a, b) => a + (Array.isArray(b) ? b.filter(x => x.done).length : 0), 0)
+      : 0;
 
     const breakdownHtml = (s.breakdown ?? [])
       .map(
@@ -1321,7 +1334,7 @@ export class AppController {
         <div class="flex flex-wrap gap-2 mb-2">
           ${progressionChips.map(c => `
             <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-green-900/20 border border-green-900/30">
-              <i data-lucide="arrow-up" class="w-3 h-3 text-green-400"></i>
+              <i data-lucide="trending-up" class="w-3 h-3 text-green-400"></i>
               <span class="text-[10px] font-bold text-green-300">${c.name}</span>
               <span class="text-[9px] text-green-700 font-mono">+${c.increment}kg</span>
             </div>`).join('')}
@@ -1369,6 +1382,13 @@ export class AppController {
               ${L.doneTile}
             </h1>
             <p class="text-sm font-bold text-theme-primary uppercase tracking-widest">${s.title ?? ""}</p>
+            ${(s.duration ?? 0) > 0 ? `
+            <div class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full
+                        border border-theme-accent/50 bg-theme-dim/40 backdrop-blur-sm">
+              <i data-lucide="timer" class="w-4 h-4 text-theme-primary"></i>
+              <span class="text-xl font-black font-mono text-white">${formatDuration(s.duration)}</span>
+              <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">de treino</span>
+            </div>` : ''}
           </div>
 
           <!-- Stats principais -->
@@ -1378,24 +1398,16 @@ export class AppController {
               <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Carga Total</div>
               <div class="text-5xl font-black text-white font-mono tracking-tighter">${formatVolume(s.vol ?? 0)}</div>
             </div>
-            ${[
-              { icon: "repeat", label: "Repetições", value: s.reps ?? 0 },
-              {
-                icon: "clock",
-                label: "Duração",
-                value: formatDuration(s.duration ?? 0),
-              },
-            ]
-              .map(
-                (m) => `
-              <div class="glass-card rounded-2xl p-4 text-center border border-zinc-800/60">
-                <i data-lucide="${m.icon}" class="w-4 h-4 text-theme-primary mx-auto mb-1.5"></i>
-                <div class="text-[9px] text-zinc-500 uppercase font-bold tracking-wider mb-1">${m.label}</div>
-                <div class="text-xl font-black text-white font-mono">${m.value}</div>
-              </div>
-            `,
-              )
-              .join("")}
+            <div class="glass-card rounded-2xl p-4 text-center border border-zinc-800/60">
+              <i data-lucide="activity" class="w-4 h-4 text-theme-primary mx-auto mb-1.5"></i>
+              <div class="text-[9px] text-zinc-500 uppercase font-bold tracking-wider mb-1">Repetições</div>
+              <div class="text-xl font-black text-white font-mono">${s.reps ?? 0}</div>
+            </div>
+            <div class="glass-card rounded-2xl p-4 text-center border border-zinc-800/60">
+              <i data-lucide="zap" class="w-4 h-4 text-theme-primary mx-auto mb-1.5"></i>
+              <div class="text-[9px] text-zinc-500 uppercase font-bold tracking-wider mb-1">Séries</div>
+              <div class="text-xl font-black text-white font-mono">${totalDoneSets}</div>
+            </div>
           </div>
 
           <!-- Missão — Locomoção + Totais -->
@@ -1534,7 +1546,7 @@ export class AppController {
           <!-- Frase motivacional -->
           <div class="rounded-2xl border border-white/5 p-5 mb-6 text-center stagger-enter"
                style="animation-delay:200ms;background:rgba(255,255,255,0.02)">
-            <i data-lucide="quote" class="w-4 h-4 text-theme-primary/40 mx-auto mb-2"></i>
+            <i data-lucide="info" class="w-4 h-4 text-theme-primary/40 mx-auto mb-2"></i>
             <p class="text-sm italic text-zinc-400 leading-relaxed font-mono">"${motivMsg}"</p>
             ${motivAuthor ? `<p class="text-[10px] text-zinc-600 font-mono mt-2">— ${motivAuthor}</p>` : ''}
           </div>
@@ -1633,6 +1645,165 @@ export class AppController {
       this.#closeReport();
       this.#closeModal();
       this.#navigate("treinar");
+    });
+  }
+
+  #showCycleModal() {
+    const state = this.#store.getState();
+    const { cycleOrder = [], cyclePosition = 0, cycleDone = [], cycleGoal = 6 } = state;
+    const allWorkouts = this.#allWorkouts();
+
+    const NAMES = { '1': 'Push A', '2': 'Legs A', '3': 'Pull A', '4': 'Push B', '5': 'Legs B', '6': 'Pull B' };
+    const MUSCLES = { '1': 'Peito · Ombro · Tríceps', '2': 'Pernas A', '3': 'Costas · Bíceps', '4': 'Peito · Ombro · Tríceps', '5': 'Pernas B + Deadlift', '6': 'Costas · Bíceps' };
+
+    const slots = cycleOrder.map((wId, i) => {
+      const w          = wId ? allWorkouts.find(x => x.id === wId) : null;
+      const isDone     = wId && cycleDone.includes(wId);
+      const isCurrent  = i === cyclePosition;
+      const isOff      = wId === null;
+      const name       = isOff ? 'Descanso' : (w?.label ?? NAMES[wId] ?? `Treino ${wId}`);
+      const sub        = isOff ? 'Dia de recuperação' : (w?.subtitle ?? MUSCLES[wId] ?? '');
+
+      const border = isDone ? 'border-green-800/60' : isCurrent ? 'border-theme-accent/60' : 'border-zinc-800/40';
+      const bg     = isDone ? 'bg-green-950/30' : isCurrent ? 'bg-theme-dark/60' : 'bg-zinc-900/30';
+      const icon   = isDone ? 'check-circle' : isOff ? 'moon' : isCurrent ? 'target' : 'dumbbell';
+      const icolor = isDone ? 'text-green-400' : isOff ? 'text-zinc-600' : isCurrent ? 'text-theme-primary' : 'text-zinc-700';
+      const tcolor = isDone ? 'text-green-300' : isOff ? 'text-zinc-500' : isCurrent ? 'text-theme-primary' : 'text-zinc-500';
+
+      const badge = isDone
+        ? `<span class="text-[8px] font-black text-green-500 uppercase tracking-widest">FEITO</span>`
+        : isCurrent
+        ? `<span class="text-[8px] font-black text-theme-primary uppercase tracking-widest animate-pulse">ATUAL</span>`
+        : '';
+
+      const startBtn = (!isOff && !isDone)
+        ? `<button data-hub-action="hub-start" data-hub-payload="${wId}"
+                   class="ripple-target ml-auto px-3 py-1 rounded-lg bg-theme-dim border border-theme-accent/40
+                          text-theme-primary text-[9px] font-black uppercase tracking-widest active:scale-90 transition-all shrink-0">
+             Treinar
+           </button>`
+        : isDone
+        ? `<button data-hub-action="hub-start" data-hub-payload="${wId}"
+                   class="ripple-target ml-auto px-3 py-1 rounded-lg bg-zinc-800/40 border border-zinc-700/40
+                          text-zinc-500 text-[9px] font-black uppercase tracking-widest active:scale-90 transition-all shrink-0">
+             Refazer
+           </button>`
+        : '';
+
+      return `
+        <div class="flex items-center gap-3 p-3 rounded-xl ${bg} border ${border}">
+          <i data-lucide="${icon}" class="w-4 h-4 ${icolor} shrink-0"></i>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-black ${tcolor}">${name}</span>
+              ${badge}
+            </div>
+            <div class="text-[9px] text-zinc-600 truncate">${sub}</div>
+          </div>
+          ${startBtn}
+        </div>`;
+    }).join('');
+
+    const doneCount = cycleDone.length;
+
+    this.#modalLayer.innerHTML = `
+      <div class="fixed inset-0 z-[80] flex items-end justify-center bg-black/80 backdrop-blur-sm animate-zoom-in"
+           id="cycle-backdrop">
+        <div class="glass-card w-full max-w-md rounded-t-3xl border border-zinc-800/60 overflow-hidden">
+          <div class="flex items-center justify-between p-4 border-b border-zinc-800/60">
+            <div>
+              <div class="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">Ciclo PPL</div>
+              <div class="text-sm font-black text-white">${doneCount}/${cycleGoal} treinos · posição ${cyclePosition + 1}/${cycleOrder.length}</div>
+            </div>
+            <button id="close-cycle-modal"
+                    class="ripple-target w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center
+                           text-zinc-400 active:scale-90 transition-all">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div class="p-4 space-y-2 overflow-y-auto no-scrollbar" style="max-height:70vh">
+            ${slots}
+          </div>
+        </div>
+      </div>`;
+
+    lucide.createIcons({ nodes: [this.#modalLayer] });
+
+    const close = () => this.#store.setState({ activeModal: null, modalData: null });
+    document.getElementById('close-cycle-modal')?.addEventListener('click', close);
+    document.getElementById('cycle-backdrop')?.addEventListener('click', e => {
+      if (e.target.id === 'cycle-backdrop') close();
+    });
+    this.#modalLayer.querySelectorAll('[data-hub-action="hub-start"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        close();
+        setTimeout(() => this.#handleAction('start-workout', btn.dataset.hubPayload), 100);
+      });
+    });
+  }
+
+  #showWorkoutPickerModal() {
+    const allWorkouts = this.#allWorkouts().filter(w => !w.isCardio);
+    const state       = this.#store.getState();
+    const { cycleOrder = [], cyclePosition = 0, cycleDone = [] } = state;
+    const nextWId     = cycleOrder[cyclePosition] ?? null;
+
+    const cards = allWorkouts.map(w => {
+      const isNext = w.id === nextWId;
+      const isDone = cycleDone.includes(w.id);
+      return `
+        <button data-hub-action="hub-start" data-hub-payload="${w.id}"
+                class="ripple-target w-full flex items-center gap-3 p-3 rounded-xl text-left
+                       ${isNext ? 'bg-theme-dark/60 border border-theme-accent/50' : 'bg-zinc-900/40 border border-zinc-800/40'}
+                       active:scale-[0.98] transition-all">
+          <div class="w-9 h-9 rounded-xl ${isNext ? 'bg-theme-dim' : 'bg-zinc-800/60'} flex items-center justify-center shrink-0">
+            <i data-lucide="${isDone ? 'check-circle' : 'dumbbell'}" class="w-4 h-4 ${isDone ? 'text-green-400' : isNext ? 'text-theme-primary' : 'text-zinc-600'}"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-black ${isNext ? 'text-theme-primary' : 'text-white'}">${w.label ?? w.name}</span>
+              ${isNext ? `<span class="text-[7px] font-black text-theme-primary uppercase tracking-widest bg-theme-dim px-1.5 py-0.5 rounded">PRÓXIMO</span>` : ''}
+              ${isDone ? `<span class="text-[7px] font-black text-green-500 uppercase tracking-widest">✓ FEITO</span>` : ''}
+            </div>
+            <div class="text-[9px] text-zinc-500 truncate">${w.subtitle ?? w.description ?? ''}</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-600 shrink-0"></i>
+        </button>`;
+    }).join('');
+
+    this.#modalLayer.innerHTML = `
+      <div class="fixed inset-0 z-[80] flex items-end justify-center bg-black/80 backdrop-blur-sm animate-zoom-in"
+           id="picker-backdrop">
+        <div class="glass-card w-full max-w-md rounded-t-3xl border border-zinc-800/60 overflow-hidden">
+          <div class="flex items-center justify-between p-4 border-b border-zinc-800/60">
+            <div>
+              <div class="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">Liberdade de Treino</div>
+              <div class="text-sm font-black text-white">Escolher treino</div>
+            </div>
+            <button id="close-picker-modal"
+                    class="ripple-target w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center
+                           text-zinc-400 active:scale-90 transition-all">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div class="p-4 space-y-2 overflow-y-auto no-scrollbar" style="max-height:65vh">
+            ${cards}
+          </div>
+        </div>
+      </div>`;
+
+    lucide.createIcons({ nodes: [this.#modalLayer] });
+
+    const close = () => this.#store.setState({ activeModal: null, modalData: null });
+    document.getElementById('close-picker-modal')?.addEventListener('click', close);
+    document.getElementById('picker-backdrop')?.addEventListener('click', e => {
+      if (e.target.id === 'picker-backdrop') close();
+    });
+    this.#modalLayer.querySelectorAll('[data-hub-action="hub-start"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        close();
+        setTimeout(() => this.#handleAction('start-workout', btn.dataset.hubPayload), 100);
+      });
     });
   }
 
@@ -2223,7 +2394,7 @@ export class AppController {
             <button data-hub-action="hub-nav" data-hub-payload="corpo"
                     class="ripple-target glass-card p-3.5 rounded-xl border border-zinc-800/60 text-left active:scale-95 transition-all">
               <div class="text-[9px] text-zinc-600 uppercase tracking-wider font-bold flex items-center gap-1 mb-2">
-                <i data-lucide="circle-user" class="w-2.5 h-2.5"></i> Corpo
+                <i data-lucide="heart" class="w-2.5 h-2.5"></i> Corpo
               </div>
               ${currentW ? `
                 <div class="text-[24px] font-black font-mono text-white leading-none">
@@ -2568,7 +2739,7 @@ export class AppController {
           <button id="run-start-btn"
                   class="w-full py-4 bg-theme-primary text-black font-black text-base uppercase rounded-2xl
                          shadow-[0_0_20px_var(--theme-primary)] active:scale-95 transition-all tracking-widest">
-            <i data-lucide="play" class="w-5 h-5 inline -mt-0.5 mr-2"></i> Iniciar
+            <i data-lucide="zap" class="w-5 h-5 inline -mt-0.5 mr-2"></i> Iniciar
           </button>
         </div>
 
@@ -2733,7 +2904,7 @@ export class AppController {
         if (!paused) {
           paused = true; clearInterval(timerHandle);
           releaseWakeLock();
-          $('#run-pause-btn').innerHTML = '<i data-lucide="play" class="w-5 h-5 inline -mt-0.5 mr-1 pointer-events-none"></i> Retomar';
+          $('#run-pause-btn').innerHTML = '<i data-lucide="zap" class="w-5 h-5 inline -mt-0.5 mr-1 pointer-events-none"></i> Retomar';
           if (window.lucide) lucide.createIcons({ nodes: [$('#run-pause-btn')] });
         } else {
           paused = false;
@@ -3358,7 +3529,7 @@ export class AppController {
           ${mediaUrl ? `
           <div class="bg-zinc-950 relative overflow-hidden" style="aspect-ratio:16/9;max-height:260px">
             <div class="demo-skeleton absolute inset-0 bg-zinc-900 animate-pulse flex items-center justify-center">
-              <i data-lucide="play" class="w-8 h-8 text-zinc-800"></i>
+              <i data-lucide="zap" class="w-8 h-8 text-zinc-800"></i>
             </div>
             <video id="demo-video" autoplay loop muted playsinline
                    class="w-full h-full object-contain"
@@ -3609,6 +3780,12 @@ export class AppController {
         this.#workoutCtrl.startNewWeek();
         this.#render(this.#store.getState());
         break;
+      case "open-cycle-modal":
+        this.#store.setState({ activeModal: 'cycle-overview', modalData: null });
+        break;
+      case "open-workout-picker":
+        this.#store.setState({ activeModal: 'workout-picker', modalData: null });
+        break;
       case "undo-mission":
         this.#workoutCtrl.undoMission(payload);
         this.#render(this.#store.getState());
@@ -3702,6 +3879,11 @@ export class AppController {
       case "mod-sets":
         this.#workoutCtrl.modSets(payload.wId, payload.exId, payload.delta);
         break;
+      case "toggle-skip-exercise": {
+        const { wId: skipWId, exid: skipExId } = payload;
+        this.#workoutCtrl.toggleSkipExercise(skipWId, skipExId);
+        break;
+      }
       case "save-log":
         this.#workoutCtrl.saveLog(
           payload.wId,
@@ -5358,14 +5540,14 @@ export class AppController {
 
           ${quote ? `
           <div class="rounded-2xl border border-white/5 p-4 mb-4 text-center" style="background:rgba(255,255,255,0.02)">
-            <i data-lucide="quote" class="w-4 h-4 text-theme-primary/40 mx-auto mb-2"></i>
+            <i data-lucide="info" class="w-4 h-4 text-theme-primary/40 mx-auto mb-2"></i>
             <p class="text-sm italic text-zinc-400 leading-relaxed font-mono">"${quote}"</p>
             ${quoteAuthor ? `<p class="text-[10px] text-zinc-600 font-mono mt-2">— ${quoteAuthor}</p>` : ''}
           </div>
           ` : ''}
           ${entry.notes ? `
           <div class="bg-white/3 rounded-2xl border border-white/5 p-4 mb-4 text-center">
-            <i data-lucide="quote" class="w-4 h-4 text-white/20 mx-auto mb-2"></i>
+            <i data-lucide="info" class="w-4 h-4 text-white/20 mx-auto mb-2"></i>
             <p class="text-sm italic text-zinc-400 font-mono">"${entry.notes}"</p>
           </div>
           ` : ''}

@@ -136,6 +136,44 @@
 
 ---
 
+## v6.4 (15/07/2026) — Notas por Exercício + RPE
+
+- Campo `exerciseNotes[wId][exId]` no estado (persistido)
+- Botão nota (pencil) em cada card de exercício → modal inline
+- `patchExerciseNote(wId, exId, note)` — patch cirúrgico, não re-render
+- RPE (Rate of Perceived Exertion) por série: chips 6–10, toggle (clicar mesmo valor = null)
+- Warmup sets excluídos de RPE display e cálculo
+- Nota aparece no breakdown do battle report e no histórico
+
+## v6.5 (15/07/2026) — QA + Auditoria
+
+- QA de 8 fluxos críticos: ciclo, PRs, skip, patches, persistedKeys
+- `computeLoadTarget` exclui warmup sets
+- `progressionChips` excluídos para warmup sets
+- Correção da ordem muscular Legs A: Extensora antes de Flexora
+- SW → monstro-v20
+
+## v6.5.1 (15/07/2026) — Hotfixes
+
+- Syntax error AppController.js:1330 corrigido
+- Skip exercise: botão X no card → oculta séries → exclui do finishWorkout (vol/breakdown/MVP/progressionChips)
+- `cycleDone` deduplication: `includes(w.id)` antes de `push`
+- Ícone `rotate-ccw` quando pulado, `x` quando ativo
+- SW → monstro-v21
+
+## v6.6 (27/07/2026) — Ciclo Livre + Timer Dual + Battle Report
+
+- **Modal `cycle-overview`**: 8 slots PPL com estado visual (feito/atual/off/futuro) + botões Treinar
+- **Modal `workout-picker`**: lista todos os treinos com badges PRÓXIMO/✓FEITO
+- Botões "Ver Ciclo" + "Escolher" no DashboardView (substituem "Novo Ciclo" único)
+- **Timer dual**: elapsed de treino (`· treino X min`) separado visualmente do countdown de descanso
+- **Battle Report**: duração em destaque como pill badge no hero `⏱ X min · de treino`
+- Stats do battle report: Carga Total + Repetições + Séries (duração saiu dos cards para o hero)
+- `workoutStartTime` sempre mostra `0 min` ao iniciar (não fica vazio no primeiro minuto)
+- ADR-003: ciclo sequencial (+1) vs indexOf — decisão documentada
+
+---
+
 ## Débito Técnico — Concluído
 
 Todos os itens listados abaixo foram corrigidos. Mantidos aqui apenas para referência de arqueologia.

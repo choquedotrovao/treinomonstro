@@ -285,7 +285,7 @@ function renderExerciseCard(wId, ex, idx, wLogs, lastSets, prs, loadTarget = nul
                              ${hasMedia
                                ? 'bg-theme-dim/70 border-theme-accent/50 text-theme-primary/80 hover:text-theme-primary hover:bg-theme-dim'
                                : 'bg-zinc-800/40 border-zinc-700/30 text-zinc-700 hover:text-zinc-500'}">
-                  <i data-lucide="play" class="w-2.5 h-2.5"></i>
+                  <i data-lucide="zap" class="w-2.5 h-2.5"></i>
                 </button>`;
               })()}
 
@@ -367,9 +367,18 @@ function renderExerciseCard(wId, ex, idx, wLogs, lastSets, prs, loadTarget = nul
           </div>
         </div>
 
+        <!-- Botão pular exercício -->
+        <button data-action="toggle-skip-exercise" data-wid="${wId}" data-exid="${ex.id}"
+                title="${exLogs._skip ? 'Retomar exercício' : 'Pular exercício'}"
+                class="ripple-target ml-auto w-8 h-8 rounded-lg flex items-center justify-center shrink-0
+                       ${exLogs._skip ? 'bg-red-900/30 border border-red-800/50 text-red-400' : 'bg-zinc-800/40 border border-zinc-700/40 text-zinc-600'}
+                       active:scale-90 transition-all">
+          <i data-lucide="${exLogs._skip ? 'rotate-ccw' : 'x'}" class="w-3 h-3"></i>
+        </button>
+
         <!-- Botão de nota rápida -->
         <button data-action="open-ex-note" data-exid="${ex.id}" data-wid="${wId}"
-                class="ripple-target ml-auto w-7 h-7 rounded-lg flex items-center justify-center shrink-0
+                class="ripple-target ml-1 w-8 h-8 rounded-lg flex items-center justify-center shrink-0
                        ${exNote ? 'bg-amber-900/30 border border-amber-800/50 text-amber-400' : 'bg-zinc-800/40 border border-zinc-700/40 text-zinc-600'}
                        active:scale-90 transition-all">
           <i data-lucide="pencil" class="w-3 h-3"></i>
@@ -415,23 +424,32 @@ function renderExerciseCard(wId, ex, idx, wLogs, lastSets, prs, loadTarget = nul
         </div>` : ''}
       </div>
 
-      <!-- Labels das colunas -->
-      ${parseTimedReps(ex.reps) !== null ? `
-      <div class="flex items-center gap-3 mb-2" data-set-labels>
-        <div class="w-8 text-center text-[8px] text-zinc-700 font-bold uppercase" title="Série">SÉR.</div>
-        <div class="flex-1 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">TEMPO</div>
-        <div class="w-12 text-center text-[8px] text-zinc-700 font-bold uppercase">OK</div>
-      </div>` : `
-      <div class="flex items-center gap-3 mb-2" data-set-labels>
-        <div class="w-8 text-center text-[8px] text-zinc-700 font-bold uppercase" title="Série (toque para marcar aquecimento)">SÉR.</div>
-        <div class="w-20 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">PESO (kg)</div>
-        <div class="flex-1 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">REPS</div>
-        <div class="w-12 text-center text-[8px] text-zinc-700 font-bold uppercase">OK</div>
-      </div>`}
+      <!-- Badge PULADO (visível só quando exercício for pulado) -->
+      ${exLogs._skip ? `
+      <div class="flex items-center justify-center gap-2 py-3 text-red-400/70 border border-dashed border-red-900/40 rounded-xl">
+        <i data-lucide="x" class="w-4 h-4"></i>
+        <span class="text-xs font-black tracking-widest uppercase">Pulado</span>
+      </div>` : ''}
 
-      <!-- Séries -->
-      <div data-sets-container="${wId}|${ex.id}">
-        ${rows}
+      <!-- Labels + séries (oculto quando pulado) -->
+      <div data-sets-section="${wId}|${ex.id}" class="${exLogs._skip ? 'hidden' : ''}">
+        ${parseTimedReps(ex.reps) !== null ? `
+        <div class="flex items-center gap-3 mb-2" data-set-labels>
+          <div class="w-8 text-center text-[8px] text-zinc-700 font-bold uppercase" title="Série">SÉR.</div>
+          <div class="flex-1 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">TEMPO</div>
+          <div class="w-12 text-center text-[8px] text-zinc-700 font-bold uppercase">OK</div>
+        </div>` : `
+        <div class="flex items-center gap-3 mb-2" data-set-labels>
+          <div class="w-8 text-center text-[8px] text-zinc-700 font-bold uppercase" title="Série (toque para marcar aquecimento)">SÉR.</div>
+          <div class="w-20 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">PESO (kg)</div>
+          <div class="flex-1 text-center text-[9px] text-zinc-600 uppercase tracking-wider font-bold">REPS</div>
+          <div class="w-12 text-center text-[8px] text-zinc-700 font-bold uppercase">OK</div>
+        </div>`}
+
+        <!-- Séries -->
+        <div data-sets-container="${wId}|${ex.id}">
+          ${rows}
+        </div>
       </div>
     </div>
   `;
@@ -493,7 +511,9 @@ export function renderWorkout(state, workout) {
         <p class="text-xs text-theme-primary font-mono tracking-widest uppercase flex items-center gap-2 mt-1">
           <span class="w-2 h-2 bg-theme-primary rounded-full animate-pulse inline-block"></span>
           Sistema Ativo
-          ${elapsed > 0 ? `<span class="text-zinc-600">·</span><span id="elapsed-workout" class="text-zinc-400 normal-case tracking-normal">${formatDuration(elapsed)}</span>` : '<span id="elapsed-workout"></span>'}
+          <span class="text-zinc-600">·</span>
+          <span class="text-zinc-600 text-[10px] uppercase font-bold tracking-widest">treino</span>
+          <span id="elapsed-workout" class="text-zinc-400 normal-case tracking-normal font-mono">${elapsed > 0 ? formatDuration(elapsed) : '0 min'}</span>
         </p>
         <div class="h-1 bg-zinc-800 rounded-full overflow-hidden mt-2">
           <div id="workout-progress-bar"
@@ -1065,6 +1085,11 @@ export function mountWorkout(container, handler) {
     }, 500);
   }, true);
 
+  delegate(container, '[data-action="toggle-skip-exercise"]', 'click', (e, el) => {
+    createRipple(e, el);
+    handler('toggle-skip-exercise', { wId: el.dataset.wid, exid: el.dataset.exid });
+  });
+
   delegate(container, '[data-action="open-ex-note"]', 'click', (e, el) => {
     createRipple(e, el);
     handler('open-ex-note', { exId: el.dataset.exid, wId: el.dataset.wid });
@@ -1112,6 +1137,48 @@ export function mountWorkout(container, handler) {
 }
 
 /* ─── Patch cirúrgico de nota rápida ──────────────────────────────── */
+
+export function patchExerciseSkip(container, wId, exId, skipped) {
+  const card = container.querySelector(`[data-exercise-card="${wId}|${exId}"]`);
+  if (!card) return;
+
+  card.classList.toggle('opacity-50', skipped);
+
+  const sec = card.querySelector(`[data-sets-section="${wId}|${exId}"]`);
+  if (sec) sec.classList.toggle('hidden', skipped);
+
+  let badge = card.querySelector('[data-skip-badge]');
+  if (skipped) {
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.setAttribute('data-skip-badge', '');
+      badge.className = 'flex items-center justify-center gap-2 py-3 text-red-400/70 border border-dashed border-red-900/40 rounded-xl';
+      badge.innerHTML = '<i data-lucide="x" class="w-4 h-4"></i><span class="text-xs font-black tracking-widest uppercase">Pulado</span>';
+      sec?.insertAdjacentElement('beforebegin', badge);
+      if (window.lucide) lucide.createIcons({ nodes: [badge] });
+    }
+  } else {
+    badge?.remove();
+  }
+
+  const btn = card.querySelector(`[data-action="toggle-skip-exercise"]`);
+  if (btn) {
+    btn.title = skipped ? 'Retomar exercício' : 'Pular exercício';
+    btn.className = btn.className
+      .replace(/bg-red-\S+|border-red-\S+|text-red-\S+|bg-zinc-\S+|border-zinc-\S+|text-zinc-\S+/g, '')
+      .trim();
+    if (skipped) {
+      btn.classList.add('bg-red-900/30', 'border', 'border-red-800/50', 'text-red-400');
+    } else {
+      btn.classList.add('bg-zinc-800/40', 'border', 'border-zinc-700/40', 'text-zinc-600');
+    }
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.setAttribute('data-lucide', skipped ? 'rotate-ccw' : 'x');
+      if (window.lucide) lucide.createIcons({ nodes: [btn] });
+    }
+  }
+}
 
 export function patchExerciseNote(exId, exNote) {
   const el = document.getElementById(`ex-note-${exId}`);
